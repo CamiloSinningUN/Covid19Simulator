@@ -6,7 +6,9 @@
 package lab02_juanjulio_jorgesalazar_camilosinning;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Toolkit;
+
 
 public class JCS extends javax.swing.JFrame {
 
@@ -49,6 +51,8 @@ public class JCS extends javax.swing.JFrame {
         tablero.setSize(sx - tablero.getLocation().x * 2, sy - tablero.getLocation().y - 50);
         //Fin ubicar UI
 
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -79,7 +83,12 @@ public class JCS extends javax.swing.JFrame {
         allMaskButton1 = new javax.swing.JButton();
         maskRandomButton1 = new javax.swing.JButton();
         withoutMaskButton1 = new javax.swing.JButton();
-        tablero = new javax.swing.JPanel();
+        tablero = new javax.swing.JPanel(){
+            @Override
+            public void paint(Graphics g){
+                grafo.InicioGrafo(g);
+            }
+        };
         playStopPanel = new javax.swing.JPanel();
         playButton = new javax.swing.JButton();
         stopButton = new javax.swing.JButton();

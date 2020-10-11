@@ -140,6 +140,7 @@ public class Grafo {
         }
         p.minodo.miPersona.enfermo = 1;
         //Graficar.GraficarInicio(g, Matriz,tablero);
+        g.drawOval(0, 0, 30, 30);
     }
 
     //Crea una multilista con los grafos y sus conexiones a partir de la lista ya creada
