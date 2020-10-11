@@ -1,10 +1,10 @@
 package lab02_juanjulio_jorgesalazar_camilosinning;
 
 public class Persona {
-    boolean enfermo;
-    boolean mascarilla;
+    int enfermo;
+    int mascarilla;
 
-    public Persona(boolean enfermo, boolean mascarilla) {
+    public Persona(int enfermo, int mascarilla) {
         this.enfermo = enfermo;
         this.mascarilla = mascarilla;
     }

@@ -2,6 +2,14 @@ package Listas;
 import lab02_juanjulio_jorgesalazar_camilosinning.Nodo;
 
 public class ListaNodos {
-    Nodo minodo;
-    ListaNodos link;
+    public Nodo minodo;
+    public ListaNodos link;
+    public ListaNodos linkIncidentes;
+
+    public ListaNodos(Nodo minodo) {
+        this.minodo = minodo;
+        this.link = null;
+        this.linkIncidentes = null;
+    }
+    
 }
