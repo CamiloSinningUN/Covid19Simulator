@@ -5,15 +5,18 @@
  */
 package lab02_juanjulio_jorgesalazar_camilosinning;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Toolkit;
-
+import java.awt.event.KeyEvent;
+import javax.swing.JPanel;
 
 public class JCS extends javax.swing.JFrame {
 
     Grafo grafo = new Grafo();
-
+    
     public JCS() {
         initComponents();
         setExtendedState(JCS.MAXIMIZED_BOTH);
@@ -49,12 +52,10 @@ public class JCS extends javax.swing.JFrame {
         //ubicar tablero
         tablero.setLocation(settingsPanel.getLocation().x + settingsPanel.getSize().width + 15, styleLabel.getLocation().y + styleLabel.getSize().height);
         tablero.setSize(sx - tablero.getLocation().x * 2, sy - tablero.getLocation().y - 50);
-        //Fin ubicar UI
-
-        
-        
+        //Fin ubicar UI       
     }
 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -86,7 +87,11 @@ public class JCS extends javax.swing.JFrame {
         tablero = new javax.swing.JPanel(){
             @Override
             public void paint(Graphics g){
-                grafo.InicioGrafo(g);
+                if(i == 1){
+                    grafo.InicioGrafo(g);
+                    i++;
+                }
+
             }
         };
         playStopPanel = new javax.swing.JPanel();
@@ -238,6 +243,11 @@ public class JCS extends javax.swing.JFrame {
                 closeButtonActionPerformed(evt);
             }
         });
+        closeButton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                closeButtonKeyPressed(evt);
+            }
+        });
         backgroundPanel.add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 0, 130, 140));
 
         numberLabel.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 48)); // NOI18N
@@ -359,7 +369,7 @@ public class JCS extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    int i = 1;
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_closeButtonActionPerformed
@@ -408,7 +418,7 @@ public class JCS extends javax.swing.JFrame {
                 maskRandomButton.setEnabled(true);
                 allMaskButton.setEnabled(true);
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             errorLabel.setText("Invalido");
         }
     }//GEN-LAST:event_startButtonActionPerformed
@@ -494,6 +504,12 @@ public class JCS extends javax.swing.JFrame {
         initialSettings.setVisible(true);
 
     }//GEN-LAST:event_resetButtonActionPerformed
+
+    private void closeButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_closeButtonKeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_closeButtonKeyPressed
 
     /**
      * @param args the command line arguments
