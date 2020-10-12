@@ -19,6 +19,15 @@ public class Grafo {
     //Crea el grafo a partir de una matriz y una lista de adyacencia
     public void InicioGrafo(Graphics g) {
         int[][] Adyacencia = MatrizAdyacencia();
+        
+        /*for (int i = 0; i < Adyacencia.length; i++) {
+            for (int j = 0; j < Adyacencia.length; j++) {
+                System.out.print(Adyacencia[i][j]);
+            }
+            System.out.println("");
+        }
+        System.out.println("otra");*/
+        
         if (SinNodosAislados(Adyacencia)) {
             InicioGrafo(g);
         }
@@ -83,7 +92,7 @@ public class Grafo {
         miListaNodos = null;
 
         while (i < cantidadNodos) {
-            ListaNodos q = null;
+            ListaNodos q;
             if (modoGrafo == 0 || modoGrafo == 1) {
                 Persona tempp = new Persona(0, modoGrafo);
                 Nodo tempn = new Nodo(i + 1, tempp);
@@ -140,8 +149,7 @@ public class Grafo {
             p = p.link;
         }
         p.minodo.miPersona.enfermo = 1;
-        //Graficar.GraficarInicio(g, Matriz,tablero);
-        g.drawOval(0, 0, 30, 30);
+        Graficar.GraficarInicio(g, Matriz);
     }
 
     //Crea una multilista con los grafos y sus conexiones a partir de la lista ya creada

@@ -5,20 +5,20 @@
  */
 package lab02_juanjulio_jorgesalazar_camilosinning;
 
+
 import java.awt.Dimension;
+
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 
 
 public class JCS extends javax.swing.JFrame {
 
     Grafo grafo = new Grafo();
-
+    
     public JCS() {
-        initComponents();
-        setExtendedState(JCS.MAXIMIZED_BOTH);
-        dispose();
-        setUndecorated(true);
+        initComponents();   
         initialSettings.setVisible(true);
         initialSettings.setLocationRelativeTo(null);
 
@@ -27,7 +27,6 @@ public class JCS extends javax.swing.JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int sy = screenSize.height;
         int sx = screenSize.width;
-        setLayout(null);
         backgroundPanel.setLocation(0, 0);
         backgroundPanel.setSize(sx, sy);
         backgroundPanel.setLayout(null);
@@ -49,12 +48,10 @@ public class JCS extends javax.swing.JFrame {
         //ubicar tablero
         tablero.setLocation(settingsPanel.getLocation().x + settingsPanel.getSize().width + 15, styleLabel.getLocation().y + styleLabel.getSize().height);
         tablero.setSize(sx - tablero.getLocation().x * 2, sy - tablero.getLocation().y - 50);
-        //Fin ubicar UI
-
-        
-        
+        //Fin ubicar UI       
     }
 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -86,9 +83,13 @@ public class JCS extends javax.swing.JFrame {
         tablero = new javax.swing.JPanel(){
             @Override
             public void paint(Graphics g){
-                grafo.InicioGrafo(g);
+                if(i==1){
+                    grafo.InicioGrafo(g);
+                    i++;     
+                }      
             }
-        };
+        }
+        ;
         playStopPanel = new javax.swing.JPanel();
         playButton = new javax.swing.JButton();
         stopButton = new javax.swing.JButton();
@@ -121,6 +122,7 @@ public class JCS extends javax.swing.JFrame {
         withoutMaskButton.setToolTipText("Without a mask");
         withoutMaskButton.setBorderPainted(false);
         withoutMaskButton.setContentAreaFilled(false);
+        withoutMaskButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         withoutMaskButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 withoutMaskButtonActionPerformed(evt);
@@ -132,6 +134,7 @@ public class JCS extends javax.swing.JFrame {
         allMaskButton.setToolTipText("With mask");
         allMaskButton.setBorderPainted(false);
         allMaskButton.setContentAreaFilled(false);
+        allMaskButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         allMaskButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 allMaskButtonActionPerformed(evt);
@@ -143,6 +146,7 @@ public class JCS extends javax.swing.JFrame {
         maskRandomButton.setToolTipText("Random");
         maskRandomButton.setBorderPainted(false);
         maskRandomButton.setContentAreaFilled(false);
+        maskRandomButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         maskRandomButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 maskRandomButtonActionPerformed(evt);
@@ -154,6 +158,7 @@ public class JCS extends javax.swing.JFrame {
         startButton.setToolTipText("Start");
         startButton.setBorderPainted(false);
         startButton.setContentAreaFilled(false);
+        startButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         startButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startButtonActionPerformed(evt);
@@ -166,6 +171,7 @@ public class JCS extends javax.swing.JFrame {
         closeButton1.setToolTipText("Close");
         closeButton1.setBorderPainted(false);
         closeButton1.setContentAreaFilled(false);
+        closeButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         closeButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeButton1ActionPerformed(evt);
@@ -224,7 +230,9 @@ public class JCS extends javax.swing.JFrame {
         initialSettings.getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setExtendedState(JCS.MAXIMIZED_BOTH);
+        setUndecorated(true);
+        getContentPane().setLayout(null);
 
         backgroundPanel.setBackground(new java.awt.Color(255, 255, 255));
         backgroundPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -233,9 +241,15 @@ public class JCS extends javax.swing.JFrame {
         closeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/close2.png"))); // NOI18N
         closeButton.setBorderPainted(false);
         closeButton.setContentAreaFilled(false);
+        closeButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeButtonActionPerformed(evt);
+            }
+        });
+        closeButton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                closeButtonKeyPressed(evt);
             }
         });
         backgroundPanel.add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 0, 130, 140));
@@ -251,6 +265,7 @@ public class JCS extends javax.swing.JFrame {
         resetButton.setToolTipText("Reset");
         resetButton.setBorderPainted(false);
         resetButton.setContentAreaFilled(false);
+        resetButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         resetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetButtonActionPerformed(evt);
@@ -262,6 +277,7 @@ public class JCS extends javax.swing.JFrame {
         nextButton.setToolTipText("Next");
         nextButton.setBorderPainted(false);
         nextButton.setContentAreaFilled(false);
+        nextButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         backgroundPanel.add(nextButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, 80, -1));
 
         settingsPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -335,6 +351,7 @@ public class JCS extends javax.swing.JFrame {
         playButton.setToolTipText("Play");
         playButton.setBorderPainted(false);
         playButton.setContentAreaFilled(false);
+        playButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         playButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 playButtonActionPerformed(evt);
@@ -346,6 +363,7 @@ public class JCS extends javax.swing.JFrame {
         stopButton.setToolTipText("Stop");
         stopButton.setBorderPainted(false);
         stopButton.setContentAreaFilled(false);
+        stopButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         stopButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stopButtonActionPerformed(evt);
@@ -355,11 +373,12 @@ public class JCS extends javax.swing.JFrame {
 
         backgroundPanel.add(playStopPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1260, 270, 90, 200));
 
-        getContentPane().add(backgroundPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1380, 650));
+        getContentPane().add(backgroundPanel);
+        backgroundPanel.setBounds(0, 0, 0, 0);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    int i = 1;
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_closeButtonActionPerformed
@@ -389,18 +408,22 @@ public class JCS extends javax.swing.JFrame {
             if (sw && sw1) {
                 initialSettings.dispose();
                 setVisible(true);
-                if (grafo.modoGrafo == 0) {
-                    withoutMaskButton1.setVisible(true);
-                    allMaskButton1.setVisible(false);
-                    maskRandomButton1.setVisible(false);
-                } else if (grafo.modoGrafo == 1) {
-                    withoutMaskButton1.setVisible(false);
-                    allMaskButton1.setVisible(true);
-                    maskRandomButton1.setVisible(false);
-                } else {
-                    withoutMaskButton1.setVisible(false);
-                    allMaskButton1.setVisible(false);
-                    maskRandomButton1.setVisible(true);
+                switch (grafo.modoGrafo) {
+                    case 0:
+                        withoutMaskButton1.setVisible(true);
+                        allMaskButton1.setVisible(false);
+                        maskRandomButton1.setVisible(false);
+                        break;
+                    case 1:
+                        withoutMaskButton1.setVisible(false);
+                        allMaskButton1.setVisible(true);
+                        maskRandomButton1.setVisible(false);
+                        break;
+                    default:
+                        withoutMaskButton1.setVisible(false);
+                        allMaskButton1.setVisible(false);
+                        maskRandomButton1.setVisible(true);
+                        break;
                 }
                 numberNodesLabel.setText(nodosTextField.getText());
                 nodosTextField.setText("");
@@ -408,7 +431,7 @@ public class JCS extends javax.swing.JFrame {
                 maskRandomButton.setEnabled(true);
                 allMaskButton.setEnabled(true);
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             errorLabel.setText("Invalido");
         }
     }//GEN-LAST:event_startButtonActionPerformed
@@ -494,6 +517,12 @@ public class JCS extends javax.swing.JFrame {
         initialSettings.setVisible(true);
 
     }//GEN-LAST:event_resetButtonActionPerformed
+
+    private void closeButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_closeButtonKeyPressed
+       if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_closeButtonKeyPressed
 
     /**
      * @param args the command line arguments
