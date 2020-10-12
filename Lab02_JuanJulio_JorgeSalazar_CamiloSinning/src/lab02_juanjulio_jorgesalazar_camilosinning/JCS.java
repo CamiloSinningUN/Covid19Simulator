@@ -83,13 +83,13 @@ public class JCS extends javax.swing.JFrame {
         tablero = new javax.swing.JPanel(){
             @Override
             public void paint(Graphics g){
-                if(i == 1){
+                if(i==1){
                     grafo.InicioGrafo(g);
-                    i++;
-                }
-
+                    i++;     
+                }      
             }
-        };
+        }
+        ;
         playStopPanel = new javax.swing.JPanel();
         playButton = new javax.swing.JButton();
         stopButton = new javax.swing.JButton();

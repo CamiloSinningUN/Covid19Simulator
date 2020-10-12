@@ -98,7 +98,7 @@ public class Graficar {
 
         //dibujar nodo 1     
         int Radio = 40;
-        int x = 300;//j.getSize().width / 2;
+        int x = 550;//j.getSize().width / 2;
         int y = 300;//j.getSize().height / 2;
         GraficarNodo(g, Radio, x, y, 1);
 
