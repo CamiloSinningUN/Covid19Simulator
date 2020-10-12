@@ -58,7 +58,7 @@ public class Graficar {
     }
 
     
-    public static NodoGrafico[][] Matriz_Matriz(int Matriz[][]){
+    static NodoGrafico[][] Matriz_Matriz(int Matriz[][]){
         NodoGrafico[][] matrizn = new NodoGrafico[Matriz.length][Matriz.length];
         for (int i = 0; i < Matriz.length; i++) {
             for (int j = 0; j < Matriz.length; j++) {

@@ -91,7 +91,7 @@ public class Grafo {
         miListaNodos = null;
 
         while (i < cantidadNodos) {
-            ListaNodos q = null;
+            ListaNodos q;
             if (modoGrafo == 0 || modoGrafo == 1) {
                 Persona tempp = new Persona(0, modoGrafo);
                 Nodo tempn = new Nodo(i + 1, tempp);
