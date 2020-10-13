@@ -20,13 +20,13 @@ public class Grafo {
     public void InicioGrafo(Graphics g) {
         int[][] Adyacencia = MatrizAdyacencia();
         
-//        for (int i = 0; i < Adyacencia.length; i++) {
-//            for (int j = 0; j < Adyacencia.length; j++) {
-//                System.out.print(Adyacencia[i][j]);
-//            }
-//            System.out.println("");
-//        }
-//        System.out.println("otra");
+        for (int i = 0; i < Adyacencia.length; i++) {
+            for (int j = 0; j < Adyacencia.length; j++) {
+                System.out.print(Adyacencia[i][j]);
+            }
+            System.out.println("");
+        }
+        System.out.println("otra");
         
         if (SinNodosAislados(Adyacencia)) {
             InicioGrafo(g);
