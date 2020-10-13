@@ -329,6 +329,7 @@ public class JCS extends javax.swing.JFrame {
         backgroundPanel.add(settingsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 90, 200));
 
         tablero.setBackground(new java.awt.Color(255, 255, 255));
+        tablero.setAutoscrolls(true);
 
         javax.swing.GroupLayout tableroLayout = new javax.swing.GroupLayout(tablero);
         tablero.setLayout(tableroLayout);
@@ -515,6 +516,7 @@ public class JCS extends javax.swing.JFrame {
 
         setVisible(false);
         initialSettings.setVisible(true);
+        i=1;
 
     }//GEN-LAST:event_resetButtonActionPerformed
 
