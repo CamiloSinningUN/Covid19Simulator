@@ -25,9 +25,21 @@ public class Graficar {
 
     static int[][] matrizAdyacencia = null;
     static nodosDibujados misNodosDibujados = null;
+    static int Radio = 40;
+    static int L = 150;
+
+    public static int TamañoLista() {
+        nodosDibujados p = misNodosDibujados;
+        int i = 0;
+        while (p != null) {
+            i++;
+            p = p.link;
+        }
+        return i;
+    }
 
     public static void insertarNodo(int num, int x, int y) {
-        System.out.println("Inserte");
+        System.out.println("Inserté");
         nodosDibujados p = misNodosDibujados;
         if (p == null) {
             nodosDibujados n = new nodosDibujados(num, x, y);
@@ -42,12 +54,14 @@ public class Graficar {
     }
 
     public static boolean dibujado(int num) {
-        boolean sw;
+        boolean sw = false;
         nodosDibujados p = misNodosDibujados;
         while ((p != null) && (p.numero != num)) {
             p = p.link;
         }
-        sw = !(p == null || p.numero != num);
+        if ((p != null) && (p.numero == num)) {
+            sw = true;
+        }
         return sw;
     }
 
@@ -60,6 +74,8 @@ public class Graficar {
         if ((p != null) && (p.numero == num)) {
             x = p.x;
             System.out.println("x: " + x);
+        } else {
+            System.out.println("fui null");
         }
 
         return x;
@@ -132,6 +148,8 @@ public class Graficar {
     public static void GraficarInicio(Graphics g, int Matriz[][]) {
         //matriz temp
         matrizAdyacencia = Matriz_MatrizAdyacencia(Matriz);
+        misNodosDibujados = null;
+        L = 150;
 
         //particiones
         int EntradaSalida = 0;
@@ -149,116 +167,120 @@ public class Graficar {
         int Particiones = EntradaSalida + Salida + Entrada; //depende de si es el mismo nodo el de salida y entrada o no
 
         //dibujar nodo 1     
-        int Radio = 40;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = screenSize.width / 2 - 30 - 90;
-        int y = screenSize.height / 2 - 130;
+        int y = screenSize.height / 2 -100;
         GraficarNodo(g, Radio, x, y, 1);
         insertarNodo(1, x, y);
 
         //conexiones
-        int L = 50;
         double grados = 2 * Math.PI / Particiones;
         double GradoActual = Math.random() * 2 * Math.PI;
         for (int i = 0; i < matrizAdyacencia.length; i++) {
+            System.out.println(TamañoLista());
             if ((matrizAdyacencia[0][i] != 0) && (matrizAdyacencia[i][0] != 0)) {
-                EntradaSalida(g, x, y, matrizAdyacencia[0][i], matrizAdyacencia[i][0], Radio, i + 1, L, GradoActual);
+                EntradaSalida(g, x, y, matrizAdyacencia[0][i], matrizAdyacencia[i][0], i + 1, GradoActual);
                 matrizAdyacencia[0][i] = 0;
                 matrizAdyacencia[i][0] = 0;
                 //GradoActual = GradoActual + grados;
-                GradoActual = AnguloAleatorio(g,Radio,L,x,y);
+                GradoActual = AnguloAleatorio(x, y);
             } else if ((matrizAdyacencia[0][i] != 0) && (matrizAdyacencia[i][0] == 0)) {
-                Salida(g, x, y, matrizAdyacencia[0][i], Radio, i + 1, L, GradoActual);
+                Salida(g, x, y, matrizAdyacencia[0][i], i + 1, GradoActual);
                 matrizAdyacencia[0][i] = 0;
                 //GradoActual = GradoActual + grados;
-                GradoActual = AnguloAleatorio(g,Radio,L,x,y);
+                GradoActual = AnguloAleatorio(x, y);
             } else if ((matrizAdyacencia[0][i] == 0) && (matrizAdyacencia[i][0] != 0)) {
-                Entrada(g, x, y, matrizAdyacencia[i][0], Radio, i + 1, L, GradoActual);
+                Entrada(g, x, y, matrizAdyacencia[i][0], i + 1, GradoActual);
                 matrizAdyacencia[i][0] = 0;
                 //GradoActual = GradoActual + grados;
-                GradoActual = AnguloAleatorio(g,Radio,L,x,y);
+                GradoActual = AnguloAleatorio(x, y);
             }
         }
 
-        // GraficarSobrante(g,Radio);
+        ConexionesDibujados(g);
     }
 
-    public static double AnguloAleatorio(Graphics g,int Radio, int L, int xn, int yn) {
+    public static double AnguloAleatorio(int xn, int yn) {
         //con numero grandes no sirve
         boolean sw = true;
         double Grados = 0;
         int i = 0;
-        while(sw){
+        while (sw) {
             Grados = Math.random() * 2 * Math.PI;
-            
+
             nodosDibujados p = misNodosDibujados;
             boolean sw1 = true;
             while (p != null) {
                 double xf = xn + Radio * Math.cos(Grados) + L * Math.cos(Grados) + Radio * Math.cos(Grados);
                 double yf = yn + Radio * Math.sin(Grados) + L * Math.sin(Grados) + Radio * Math.sin(Grados);
-                g.setColor(Color.black);
-                g.fillOval((int)xf, (int)yf, 5, 5);
-                g.setColor(Color.green);
-                g.fillOval(p.x, p.y, 8, 8);
-                double distancia = Math.sqrt(Math.pow(xf-p.x, 2)+Math.pow(yf-p.y, 2));
+//                g.setColor(Color.black);
+//                g.fillOval((int)xf, (int)yf, 5, 5);
+//                g.setColor(Color.green);
+//                g.fillOval(p.x, p.y, 8, 8);
+                double distancia = Math.sqrt(Math.pow(xf - p.x, 2) + Math.pow(yf - p.y, 2));
                 //System.out.println("distancia: "+distancia);
-                if(distancia<Radio){
-                    sw1 = false;                    
+                if (Radio >= distancia) {
+                    sw1 = false;
                 }
                 p = p.link;
-                
+
             }
-            if(sw1 == true){
+            if (sw1 == true) {
                 sw = false;
-            } else if(i>100000){
+            } else if (i > 1000) {
                 sw = false;
-                System.out.println("imposible");
+                L = L + Radio;
             }
             i++;
         }
-        
-        
+
         return Grados;
     }
 
-    /*public static void GraficarSobrante(Graphics g, int Radio) {
-        
+    public static void ConexionesDibujados(Graphics g) {
+
         //encontrar grado a grafo que se quiere y L
         for (int i = 1; i < matrizAdyacencia.length; i++) {
-            for (int j = 1; j < matrizAdyacencia.length; j++) {
+            for (int j = i; j < matrizAdyacencia.length; j++) {
                 if ((matrizAdyacencia[i][j] != 0) && (matrizAdyacencia[j][i] != 0)) {
-                    if (dibujado(j + 1) && dibujado(i+1)) {
-                       
-                        double L = Math.sqrt(Math.pow(posicionX(j+1)-posicionX(i+1), 2)+Math.pow(posicionY(i+1)-posicionY(j+1), 2));
-                        System.out.println("L:"+L);
-                        double theta = Math.acos((posicionX(j+1)-posicionX(i+1))/(L+2*Radio));
-                        System.out.println("theta:"+theta);
-                        EntradaSalida(g,posicionX(i+1),posicionY(i+1),matrizAdyacencia[j][i],matrizAdyacencia [i][j],Radio,i+1, L,theta);                      
-                    } 
-                    
+                    if ((dibujado(j + 1)) && (dibujado(i + 1))) {
+                        double distancia = +Math.sqrt(Math.pow(posicionX(j + 1) - posicionX(i + 1), 2) + Math.pow(posicionY(i + 1) - posicionY(j + 1), 2));
+                        L = (int) (distancia - 2 * Radio);
+                        double theta;
+                        if(posicionX(i+1)<posicionX(j+1)){
+                            theta = Math.asin((-posicionY(i + 1) + posicionY(j + 1)) / (distancia));    
+                        }else{
+                            theta = Math.asin((posicionY(i + 1) - posicionY(j + 1)) / (distancia))+Math.PI;
+                        }
+
+                        
+
+                        EntradaSalida(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[j][i], matrizAdyacencia[i][j], j + 1, theta);
+                    }
                     matrizAdyacencia[i][j] = 0;
                     matrizAdyacencia[j][i] = 0;
-                    //GradoActual = GradoActual + grados;
+
                 } else if ((matrizAdyacencia[i][j] != 0) && (matrizAdyacencia[j][i] == 0)) {
                     if (dibujado(j + 1)) {
-                        
+
                     } else {
 
                     }
                     //Salida(g,x,y,matrizAdyacencia [0][i],Radio,i+1,L,GradoActual);
-                    matrizAdyacencia[i][j] = 0;
+                    //matrizAdyacencia[i][j] = 0;
                     //GradoActual = GradoActual + grados;
                 } else if ((matrizAdyacencia[i][j] == 0) && (matrizAdyacencia[j][i] != 0)) {
                     //verificar si el nodo ya existe
                     //Entrada(g,x,y,matrizAdyacencia[i][0],Radio,i+1,L,GradoActual);
-                    matrizAdyacencia[j][i] = 0;
+                    //matrizAdyacencia[j][i] = 0;
                     //GradoActual = GradoActual + grados;
                 }
             }
         }
 
-    }*/
-    public static void EntradaSalida(Graphics g, int xn, int yn, int peso1, int peso2, int Radio, int nodo, double L, double GradoActual) {
+    }
+
+    public static void EntradaSalida(Graphics g, int xn, int yn, int peso1, int peso2, int nodo, double GradoActual) {
         double xi = xn + Radio * Math.cos(GradoActual);
         double yi = yn + Radio * Math.sin(GradoActual);
         double xf = xi + L * Math.cos(GradoActual);
@@ -274,7 +296,7 @@ public class Graficar {
         insertarNodo(nodo, (int) (xf + Radio * Math.cos(GradoActual)), (int) (yf + Radio * Math.sin(GradoActual)));
     }
 
-    public static void Salida(Graphics g, int xn, int yn, int peso, int Radio, int nodo, int L, double GradoActual) {
+    public static void Salida(Graphics g, int xn, int yn, int peso, int nodo, double GradoActual) {
         double xi = xn + Radio * Math.cos(GradoActual);
         double yi = yn + Radio * Math.sin(GradoActual);
         double xf = xi + L * Math.cos(GradoActual);
@@ -288,7 +310,7 @@ public class Graficar {
         insertarNodo(nodo, (int) (xf + Radio * Math.cos(GradoActual)), (int) (yf + Radio * Math.sin(GradoActual)));
     }
 
-    public static void Entrada(Graphics g, int xn, int yn, int peso, int Radio, int nodo, int L, double GradoActual) {
+    public static void Entrada(Graphics g, int xn, int yn, int peso, int nodo, double GradoActual) {
         double xi = xn + Radio * Math.cos(GradoActual);
         double yi = yn + Radio * Math.sin(GradoActual);
         double xf = xi + L * Math.cos(GradoActual);
