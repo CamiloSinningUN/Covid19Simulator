@@ -31,8 +31,10 @@ public class Grafo {
         
         
         if (ConNodosAislados(Adyacencia)) {
+            
             InicioGrafo(g);
-        }
+        }      
+        System.out.println("entre aca");
         GrafoComoLista(g, Adyacencia);
     }
 
@@ -63,9 +65,11 @@ public class Grafo {
     boolean ConNodosAislados(int Matriz[][]) {
         boolean Aislados = false;
         int i = 0, j = 0, aux = 0, acum = 0, acum2 = 0;
-
+        System.out.println("entre");
         while (i < cantidadNodos) {
+            System.out.println("entre 1");
             while (j < cantidadNodos) {
+                System.out.println("entre 2");
                 acum = Matriz[i][j] + acum;
                 j++;
             }
@@ -78,11 +82,14 @@ public class Grafo {
                     Aislados = true;
                     return Aislados;
                 }
-            } else {
+            } 
                 j = 0;
                 i++;
-            }
+                acum = 0;
+                acum2 = 0;
+            
         }
+        System.out.println("sali");
         return Aislados;
     }
 
@@ -132,14 +139,18 @@ public class Grafo {
         int infectado, j = 0, acum = 0;
 
         infectado = (int) (Math.random() * cantidadNodos) + 1;
-        while (j < cantidadNodos) {
+        /*while (j < cantidadNodos) {
             acum = Matriz[infectado - 1][j] + acum;
             j++;
         }
         if (acum == 0) {
             PrimerInfectado(Matriz);
+
         }
         System.out.println(infectado);
+
+        }*/
+
         return infectado;
     }
 
