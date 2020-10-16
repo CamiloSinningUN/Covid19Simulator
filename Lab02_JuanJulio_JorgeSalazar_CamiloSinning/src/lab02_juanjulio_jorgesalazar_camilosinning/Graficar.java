@@ -172,9 +172,9 @@ public class Graficar {
         int x = 0;
         int y = 0;
         while (sw) {
-            x =(int) (Math.random() * screenSize.height);
-            y =(int) (Math.random() * screenSize.width);
-            if(RangoPermitido(x,y)){
+            x = (int) (Math.random() * screenSize.height);
+            y = (int) (Math.random() * screenSize.width);
+            if (RangoPermitido(x, y)) {
                 sw = false;
             }
         }
@@ -236,7 +236,7 @@ public class Graficar {
             }
             if (sw1 == true) {
                 sw = false;
-            } else if (i > 1000) {
+            } else if (i > 100000) {
                 L = L + Radio;
                 i = 0;
             }
@@ -277,13 +277,16 @@ public class Graficar {
                                 theta = Math.asin((posicionY(i + 1) - posicionY(j + 1)) / (distancia)) + Math.PI;
                             }
                             EntradaSalida(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[j][i], matrizAdyacencia[i][j], j + 1, theta);
+                            matrizAdyacencia[i][j] = 0;
+                            matrizAdyacencia[j][i] = 0;
                         } else if (dibujado(i + 1)) {
                             L = 150;
                             GradoActual = AnguloAleatorio(posicionX(i + 1), posicionY(i + 1));
                             EntradaSalida(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[j][i], matrizAdyacencia[i][j], j + 1, GradoActual);
+                            matrizAdyacencia[i][j] = 0;
+                            matrizAdyacencia[j][i] = 0;
                         }
-                        matrizAdyacencia[i][j] = 0;
-                        matrizAdyacencia[j][i] = 0;
+
                     } else if ((matrizAdyacencia[i][j] != 0) && (matrizAdyacencia[j][i] == 0)) {
                         if ((dibujado(j + 1)) && (dibujado(i + 1))) {
                             double distancia = +Math.sqrt(Math.pow(posicionX(j + 1) - posicionX(i + 1), 2) + Math.pow(posicionY(i + 1) - posicionY(j + 1), 2));
@@ -295,12 +298,14 @@ public class Graficar {
                                 theta = Math.asin((posicionY(i + 1) - posicionY(j + 1)) / (distancia)) + Math.PI;
                             }
                             Salida(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[i][j], j + 1, theta);
+                            matrizAdyacencia[i][j] = 0;
                         } else if (dibujado(i + 1)) {
                             L = 150;
                             GradoActual = AnguloAleatorio(posicionX(i + 1), posicionY(i + 1));
                             Salida(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[i][j], j + 1, GradoActual);
+                            matrizAdyacencia[i][j] = 0;
                         }
-                        matrizAdyacencia[i][j] = 0;
+
                     } else if ((matrizAdyacencia[i][j] == 0) && (matrizAdyacencia[j][i] != 0)) {
                         if ((dibujado(j + 1)) && (dibujado(i + 1))) {
                             double distancia = +Math.sqrt(Math.pow(posicionX(j + 1) - posicionX(i + 1), 2) + Math.pow(posicionY(i + 1) - posicionY(j + 1), 2));
@@ -312,12 +317,14 @@ public class Graficar {
                                 theta = Math.asin((posicionY(i + 1) - posicionY(j + 1)) / (distancia)) + Math.PI;
                             }
                             Entrada(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[j][i], j + 1, theta);
+                            matrizAdyacencia[j][i] = 0;
                         } else if (dibujado(i + 1)) {
                             L = 150;
                             GradoActual = AnguloAleatorio(posicionX(i + 1), posicionY(i + 1));
                             Entrada(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[j][i], j + 1, GradoActual);
+                            matrizAdyacencia[j][i] = 0;
                         }
-                        matrizAdyacencia[j][i] = 0;
+
                     }
                 }
             }
@@ -376,7 +383,7 @@ public class Graficar {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int sx = screenSize.width;
         int sy = screenSize.height;
-        if ((x < 0 + Radio) || (y < 0 + Radio) || (y > sy - 50 - 130) || (x > sx - 60 - 90 * 2)) {
+        if ((x < 0 + Radio) || (y < 0 + Radio) || (y > sy - 50 - 130 - Radio) || (x > sx - 60 - 90 * 2 - Radio)) {
             sw = false;
         }
         return sw;
