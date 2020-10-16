@@ -184,7 +184,7 @@ public class Graficar {
 
         //conexiones
         double grados = 2 * Math.PI / Particiones;
-        double GradoActual = Math.random() * 2 * Math.PI;
+        double GradoActual = AnguloAleatorio(x,y);
         for (int i = 0; i < matrizAdyacencia.length; i++) {
 //            System.out.println(TamañoLista());
             if ((matrizAdyacencia[0][i] != 0) && (matrizAdyacencia[i][0] != 0)) {
