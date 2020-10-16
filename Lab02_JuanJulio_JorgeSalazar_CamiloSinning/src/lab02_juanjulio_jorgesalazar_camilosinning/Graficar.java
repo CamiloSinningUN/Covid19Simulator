@@ -168,8 +168,17 @@ public class Graficar {
 
         //dibujar nodo 1     
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = screenSize.width / 2 - 30 - 90;
-        int y = screenSize.height / 2 - 100;
+        boolean sw = true;
+        int x = 0;
+        int y = 0;
+        while (sw) {
+            x =(int) (Math.random() * screenSize.height);
+            y =(int) (Math.random() * screenSize.width);
+            if(RangoPermitido(x,y)){
+                sw = false;
+            }
+        }
+
         GraficarNodo(g, Radio, x, y, 1);
         insertarNodo(1, x, y);
 
@@ -219,7 +228,7 @@ public class Graficar {
 //                g.fillOval(p.x, p.y, 8, 8);
                 double distancia = Math.sqrt(Math.pow(xf - p.x, 2) + Math.pow(yf - p.y, 2));
                 //System.out.println("distancia: "+distancia);
-                if ((Radio >= distancia)|| !(RangoPermitido(xf,yf))) {
+                if ((Radio >= distancia) || !(RangoPermitido(xf, yf))) {
                     sw1 = false;
                 }
                 p = p.link;
@@ -228,8 +237,8 @@ public class Graficar {
             if (sw1 == true) {
                 sw = false;
             } else if (i > 1000) {
-                sw = false;
                 L = L + Radio;
+                i = 0;
             }
             i++;
         }
@@ -367,9 +376,9 @@ public class Graficar {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int sx = screenSize.width;
         int sy = screenSize.height;
-        if ((x < 0 + Radio) || (y < 0 + Radio) || (y>sy-50-130)||(x>sx-60-90*2)) {
+        if ((x < 0 + Radio) || (y < 0 + Radio) || (y > sy - 50 - 130) || (x > sx - 60 - 90 * 2)) {
             sw = false;
-        }    
+        }
         return sw;
     }
 }

@@ -21,7 +21,7 @@ public class Grafo {
         int[][] Adyacencia = MatrizAdyacencia();
         
         System.out.println("");
-        System.out.println("Matriz de adyacencia: ");
+        System.out.println("Matriz de adyacencia:");
         for (int i = 0; i < Adyacencia.length; i++) {
             for (int j = 0; j < Adyacencia.length; j++) {
                 System.out.print(Adyacencia[i][j]);
@@ -30,7 +30,7 @@ public class Grafo {
         }
         
         
-        if (SinNodosAislados(Adyacencia)) {
+        if (ConNodosAislados(Adyacencia)) {
             InicioGrafo(g);
         }
         GrafoComoLista(g, Adyacencia);
@@ -60,7 +60,7 @@ public class Grafo {
     }
 
     //Verifica que no haya nodos aislados
-    boolean SinNodosAislados(int Matriz[][]) {
+    boolean ConNodosAislados(int Matriz[][]) {
         boolean Aislados = false;
         int i = 0, j = 0, aux = 0, acum = 0, acum2 = 0;
 
