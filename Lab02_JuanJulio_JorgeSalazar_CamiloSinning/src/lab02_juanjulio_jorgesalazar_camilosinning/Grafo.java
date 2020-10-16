@@ -139,6 +139,7 @@ public class Grafo {
         if (acum == 0) {
             PrimerInfectado(Matriz);
         }
+        System.out.println(infectado);
         return infectado;
     }
 
