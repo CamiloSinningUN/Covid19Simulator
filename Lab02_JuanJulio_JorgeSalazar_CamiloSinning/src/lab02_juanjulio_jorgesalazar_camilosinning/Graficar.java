@@ -146,6 +146,7 @@ public class Graficar {
     }
 
     public static void GraficarInicio(Graphics g, int Matriz[][]) {
+        System.out.println("entre a dibujar");
         //matriz temp
         matrizAdyacencia = null;
         matrizAdyacencia = Matriz_MatrizAdyacencia(Matriz);

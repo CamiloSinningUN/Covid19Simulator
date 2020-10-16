@@ -18,22 +18,26 @@ public class Grafo {
 
     //Crea el grafo a partir de una matriz y una lista de adyacencia
     public void InicioGrafo(Graphics g) {
-        int[][] Adyacencia = MatrizAdyacencia();
-        
-        System.out.println("");
-        System.out.println("Matriz de adyacencia:");
-        for (int i = 0; i < Adyacencia.length; i++) {
-            for (int j = 0; j < Adyacencia.length; j++) {
-                System.out.print(Adyacencia[i][j]);
-            }
+        boolean sw = true;
+        int[][] Adyacencia = null;
+        while (sw) {
+            Adyacencia = MatrizAdyacencia();
+
             System.out.println("");
+            System.out.println("Matriz de adyacencia:");
+            for (int i = 0; i < Adyacencia.length; i++) {
+                for (int j = 0; j < Adyacencia.length; j++) {
+                    System.out.print(Adyacencia[i][j]);
+                }
+                System.out.println("");
+            }
+
+            if (!ConNodosAislados(Adyacencia)) {
+
+                sw = false;
+            }
         }
-        
-        
-        if (ConNodosAislados(Adyacencia)) {
-            
-            InicioGrafo(g);
-        }      
+
         System.out.println("entre aca");
         GrafoComoLista(g, Adyacencia);
     }
@@ -82,12 +86,12 @@ public class Grafo {
                     Aislados = true;
                     return Aislados;
                 }
-            } 
-                j = 0;
-                i++;
-                acum = 0;
-                acum2 = 0;
-            
+            }
+            j = 0;
+            i++;
+            acum = 0;
+            acum2 = 0;
+
         }
         System.out.println("sali");
         return Aislados;
@@ -95,6 +99,7 @@ public class Grafo {
 
     //Crea una lista donde cada nodo tendrá las características de los nodos del grafo
     public void GrafoComoLista(Graphics g, int Matriz[][]) {
+        System.out.println("entre a lista");
         int i = 0;
         ListaNodos p;
         int infectado;
@@ -151,6 +156,7 @@ public class Grafo {
 
     //Función que actualiza la lista con los infectados
     public void ActualizaInfectados(Graphics g, int infectado, int Matriz[][]) {
+        System.out.println("entre a actializar");
         ListaNodos p;
 
         p = miListaNodos;
@@ -202,7 +208,6 @@ public class Grafo {
     public void Iteracion(Graphics g, int Matriz[][]) {
         ListaNodos p;
         p = miListaNodos;
-
 
         while (p != null) {
             while (p.minodo.miPersona.enfermo == 0) {
