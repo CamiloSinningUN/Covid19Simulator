@@ -219,7 +219,7 @@ public class Graficar {
 //                g.fillOval(p.x, p.y, 8, 8);
                 double distancia = Math.sqrt(Math.pow(xf - p.x, 2) + Math.pow(yf - p.y, 2));
                 //System.out.println("distancia: "+distancia);
-                if (Radio >= distancia) {
+                if ((Radio >= distancia)|| !(RangoPermitido(xf,yf))) {
                     sw1 = false;
                 }
                 p = p.link;
@@ -237,17 +237,18 @@ public class Graficar {
         return Grados;
     }
 
-    public static boolean MatrizCeros(){
+    public static boolean MatrizCeros() {
         boolean sw = true;
         for (int i = 0; i < matrizAdyacencia.length; i++) {
             for (int j = 0; j < matrizAdyacencia.length; j++) {
-                if(matrizAdyacencia[i][j]!=0){
+                if (matrizAdyacencia[i][j] != 0) {
                     sw = false;
                 }
             }
         }
         return sw;
     }
+
     public static void ConexionesDibujados(Graphics g) {
 
         double GradoActual;
@@ -267,7 +268,7 @@ public class Graficar {
                                 theta = Math.asin((posicionY(i + 1) - posicionY(j + 1)) / (distancia)) + Math.PI;
                             }
                             EntradaSalida(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[j][i], matrizAdyacencia[i][j], j + 1, theta);
-                        } else if(dibujado(i+1)){
+                        } else if (dibujado(i + 1)) {
                             L = 150;
                             GradoActual = AnguloAleatorio(posicionX(i + 1), posicionY(i + 1));
                             EntradaSalida(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[j][i], matrizAdyacencia[i][j], j + 1, GradoActual);
@@ -285,7 +286,7 @@ public class Graficar {
                                 theta = Math.asin((posicionY(i + 1) - posicionY(j + 1)) / (distancia)) + Math.PI;
                             }
                             Salida(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[i][j], j + 1, theta);
-                        } else if(dibujado(i+1)) {
+                        } else if (dibujado(i + 1)) {
                             L = 150;
                             GradoActual = AnguloAleatorio(posicionX(i + 1), posicionY(i + 1));
                             Salida(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[i][j], j + 1, GradoActual);
@@ -298,11 +299,11 @@ public class Graficar {
                             double theta;
                             if (posicionX(i + 1) < posicionX(j + 1)) {
                                 theta = Math.asin((-posicionY(i + 1) + posicionY(j + 1)) / (distancia));
-                            } else  {
+                            } else {
                                 theta = Math.asin((posicionY(i + 1) - posicionY(j + 1)) / (distancia)) + Math.PI;
                             }
                             Entrada(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[j][i], j + 1, theta);
-                        } else if(dibujado(i+1)){
+                        } else if (dibujado(i + 1)) {
                             L = 150;
                             GradoActual = AnguloAleatorio(posicionX(i + 1), posicionY(i + 1));
                             Entrada(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[j][i], j + 1, GradoActual);
@@ -311,7 +312,7 @@ public class Graficar {
                     }
                 }
             }
-            if(MatrizCeros()){
+            if (MatrizCeros()) {
                 sw = false;
             }
         }
@@ -359,5 +360,16 @@ public class Graficar {
         //Nodo
         GraficarNodo(g, Radio, (int) (xf + Radio * Math.cos(GradoActual)), (int) (yf + Radio * Math.sin(GradoActual)), nodo);
         insertarNodo(nodo, (int) (xf + Radio * Math.cos(GradoActual)), (int) (yf + Radio * Math.sin(GradoActual)));
+    }
+
+    public static boolean RangoPermitido(double x, double y) {
+        boolean sw = true;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int sx = screenSize.width;
+        int sy = screenSize.height;
+        if ((x < 0 + Radio) || (y < 0 + Radio) || (y>sy-50-130)||(x>sx-60-90*2)) {
+            sw = false;
+        }    
+        return sw;
     }
 }
