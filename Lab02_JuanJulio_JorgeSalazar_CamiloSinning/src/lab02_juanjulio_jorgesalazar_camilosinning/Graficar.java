@@ -147,10 +147,10 @@ public class Graficar {
 
     public static void GraficarInicio(Graphics g, int Matriz[][]) {
         //matriz temp
+        matrizAdyacencia = null;
         matrizAdyacencia = Matriz_MatrizAdyacencia(Matriz);
         misNodosDibujados = null;
         L = 150;
-
         //particiones
         int EntradaSalida = 0;
         int Entrada = 0;
@@ -185,6 +185,7 @@ public class Graficar {
         //conexiones
         double grados = 2 * Math.PI / Particiones;
         double GradoActual = AnguloAleatorio(x, y);
+       
         for (int i = 0; i < matrizAdyacencia.length; i++) {
 //            System.out.println(TamañoLista());
             if ((matrizAdyacencia[0][i] != 0) && (matrizAdyacencia[i][0] != 0)) {
@@ -215,6 +216,7 @@ public class Graficar {
         double Grados = 0;
         int i = 0;
         while (sw) {
+            
             Grados = Math.random() * 2 * Math.PI;
 
             nodosDibujados p = misNodosDibujados;
@@ -264,6 +266,7 @@ public class Graficar {
         boolean sw = true;
         //encontrar grado a grafo que se quiere y L
         while (sw) {
+            
             for (int i = 0; i < matrizAdyacencia.length; i++) {
                 for (int j = 0; j < matrizAdyacencia.length; j++) {
                     if ((matrizAdyacencia[i][j] != 0) && (matrizAdyacencia[j][i] != 0)) {
