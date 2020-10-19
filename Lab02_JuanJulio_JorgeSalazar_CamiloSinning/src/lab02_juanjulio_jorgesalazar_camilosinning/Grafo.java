@@ -152,7 +152,7 @@ public class Grafo {
             }
             if (acum == 0) {
                 j = 0;
-            }else{
+            } else {
                 sw = true;
             }
         }
@@ -303,6 +303,7 @@ public class Grafo {
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 80) {
+                ActualizaInfectados(g, aux.minodo.id, Matriz);
                 ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
@@ -328,6 +329,7 @@ public class Grafo {
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 90) {
+                ActualizaInfectados(g, aux.minodo.id, Matriz);
                 ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
@@ -354,6 +356,7 @@ public class Grafo {
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 40) {
+                ActualizaInfectados(g, aux.minodo.id, Matriz);
                 ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
@@ -380,6 +383,7 @@ public class Grafo {
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 60) {
+                ActualizaInfectados(g, aux.minodo.id, Matriz);
                 ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
@@ -406,6 +410,7 @@ public class Grafo {
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 30) {
+                ActualizaInfectados(g, aux.minodo.id, Matriz);
                 ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
@@ -432,6 +437,7 @@ public class Grafo {
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 40) {
+                ActualizaInfectados(g, aux.minodo.id, Matriz);
                 ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
@@ -458,6 +464,7 @@ public class Grafo {
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 20) {
+                ActualizaInfectados(g, aux.minodo.id, Matriz);
                 ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
@@ -484,6 +491,7 @@ public class Grafo {
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 30) {
+                ActualizaInfectados(g, aux.minodo.id, Matriz);
                 ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
