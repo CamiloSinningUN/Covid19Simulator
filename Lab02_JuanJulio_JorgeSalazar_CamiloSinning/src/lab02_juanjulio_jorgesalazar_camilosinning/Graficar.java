@@ -215,7 +215,9 @@ public class Graficar {
         //con numero grandes no sirve
         boolean sw = true;
         double Grados = 0;
-        int i = 0;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int sx = screenSize.width;
+        int sy = screenSize.height;
         while (sw) {
             
             Grados = Math.random() * 2 * Math.PI;
@@ -223,8 +225,10 @@ public class Graficar {
             nodosDibujados p = misNodosDibujados;
             boolean sw1 = true;
             while (p != null) {
+                L = (int) (Math.random()*(sx - 60 - 90 * 2 - Radio));
                 double xf = xn + Radio * Math.cos(Grados) + L * Math.cos(Grados) + Radio * Math.cos(Grados);
                 double yf = yn + Radio * Math.sin(Grados) + L * Math.sin(Grados) + Radio * Math.sin(Grados);
+                
 //                g.setColor(Color.black);
 //                g.fillOval((int)xf, (int)yf, 5, 5);
 //                g.setColor(Color.green);
@@ -239,11 +243,7 @@ public class Graficar {
             }
             if (sw1 == true) {
                 sw = false;
-            } else if (i > 100000) {
-                L = L + Radio;
-                i = 0;
-            }
-            i++;
+            } 
         }
 
         return Grados;
