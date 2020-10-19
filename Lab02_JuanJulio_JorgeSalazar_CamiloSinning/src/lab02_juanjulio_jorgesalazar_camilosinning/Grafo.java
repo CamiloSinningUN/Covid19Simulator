@@ -141,21 +141,22 @@ public class Grafo {
 
     //Función que da al azar el primer infectado
     int PrimerInfectado(int Matriz[][]) {
-        int infectado, j = 0, acum = 0;
+        int infectado = 0, j = 0, acum = 0;
+        boolean sw = false;
 
-        infectado = (int) (Math.random() * cantidadNodos) + 1;
-        /*while (j < cantidadNodos) {
-            acum = Matriz[infectado - 1][j] + acum;
-            j++;
-        }
-        if (acum == 0) {
-            PrimerInfectado(Matriz);
-
+        while (sw == false) {
+            while (j < cantidadNodos) {
+                infectado = (int) (Math.random() * cantidadNodos) + 1;
+                acum = Matriz[infectado - 1][j] + acum;
+                j++;
+            }
+            if (acum == 0) {
+                j = 0;
+            }else{
+                sw = true;
+            }
         }
         System.out.println(infectado);
-
-        }*/
-
         return infectado;
     }
 
