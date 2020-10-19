@@ -1,5 +1,6 @@
 package lab02_juanjulio_jorgesalazar_camilosinning;
 
+import Listas.ListaNodos;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
@@ -9,11 +10,11 @@ import java.awt.Toolkit;
 class nodosDibujados {
 
     int numero;
-    int x;
-    int y;
+    double x;
+    double y;
     nodosDibujados link;
 
-    public nodosDibujados(int numero, int x, int y) {
+    public nodosDibujados(int numero, double x, double y) {
         this.numero = numero;
         this.x = x;
         this.y = y;
@@ -26,9 +27,11 @@ public class Graficar {
     static int[][] matrizAdyacencia = null;
     static nodosDibujados misNodosDibujados = null;
     static int Radio = 40;
-    static int L = 150;
+    static int L;
 
+    //Devuelve el tamaño de la lista de nodos dibujados
     public static int TamañoLista() {
+//        System.out.println("TamañoLista");
         nodosDibujados p = misNodosDibujados;
         int i = 0;
         while (p != null) {
@@ -38,8 +41,9 @@ public class Graficar {
         return i;
     }
 
-    public static void insertarNodo(int num, int x, int y) {
-//        System.out.println("Inserté");
+    //Inserta nodos a la lista de nodos dibujados
+    public static void insertarNodo(int num, double x, double y) {
+//        System.out.println("InsertarNodo");
         nodosDibujados p = misNodosDibujados;
         if (p == null) {
             nodosDibujados n = new nodosDibujados(num, x, y);
@@ -53,7 +57,9 @@ public class Graficar {
         }
     }
 
+    //Te dice si un nodo ya fue dibujado
     public static boolean dibujado(int num) {
+//        System.out.println("dibujado");
         boolean sw = false;
         nodosDibujados p = misNodosDibujados;
         while ((p != null) && (p.numero != num)) {
@@ -65,71 +71,93 @@ public class Graficar {
         return sw;
     }
 
-    public static int posicionX(int num) {
-        int x = 0;
+    //te devuelve la posicion en x de un nodo ya dibujado
+    public static double posicionX(int num) {
+//        System.out.println("posicionX");
+        double x = 0;
         nodosDibujados p = misNodosDibujados;
         while ((p != null) && (p.numero != num)) {
             p = p.link;
         }
         if ((p != null) && (p.numero == num)) {
             x = p.x;
-//            System.out.println("x: " + x);
-        } else {
-//            System.out.println("fui null");
         }
-
         return x;
     }
 
-    public static int posicionY(int num) {
-        int y = 0;
+    //te devuelve la posicion en y de un nodo ya dibujado
+    public static double posicionY(int num) {
+//        System.out.println("posicionY");
+        double y = 0;
         nodosDibujados p = misNodosDibujados;
         while ((p != null) && (p.numero != num)) {
             p = p.link;
         }
         if ((p != null) && (p.numero == num)) {
             y = p.y;
-//            System.out.println("y: " + y);
         }
 
         return y;
     }
 
-    public static void GraficarNodo(Graphics g, int diametro, int x, int y, int num) {
-        // dibujar circulo
+    //Grafica un nodo en coordenadas dadas
+    public static void GraficarNodo(Graphics g, int diametro, double x, double y, int num) {
+//        System.out.println("GraficarNodo");
         g.setColor(Color.blue);
-        g.drawOval(x - diametro / 2, y - diametro / 2, diametro, diametro);
-        // poner texto en el circulo
+        if (PersonaEnferma(num)) {
+            g.setColor(Color.red);
+            g.drawOval((int) x - diametro / 2, (int) y - diametro / 2, diametro, diametro);
+        } else {
+            g.setColor(Color.blue);
+            g.drawOval((int) x - diametro / 2, (int) y - diametro / 2, diametro, diametro);
+        }
         FontMetrics fm = g.getFontMetrics();
         double textWidth = fm.getStringBounds(num + "", g).getWidth();
         g.setColor(Color.black);
         g.drawString(num + "", (int) (x - textWidth / 2), (int) (y + fm.getMaxAscent() / 2));
     }
 
-    public static void GraficarPeso(Graphics g, int diametro, int x, int y, int num) {
-        // dibujar circulo
+    //te devuelve si la persona esta o no enferma
+    public static boolean PersonaEnferma(int num) {
+//        System.out.println("PersonaEnferma");
+        boolean sw = false;
+        ListaNodos p = Grafo.miListaNodos;
+        while (p != null) {
+            if (p.minodo.id == num) {
+                if (p.minodo.miPersona.enfermo == 1) {
+                    sw = true;
+                }
+            }
+            p = p.link;
+        }
+        return sw;
+    }
+
+    //Grafica el peso de las aristas en coordenas dadas
+    public static void GraficarPeso(Graphics g, int diametro, double x, double y, int num) {
+//        System.out.println("GraficarPeso");
         g.setColor(Color.white);
-        g.fillOval(x - diametro / 2, y - diametro / 2, diametro, diametro);
-        // poner texto en el circulo
+        g.fillOval((int) x - diametro / 2, (int) y - diametro / 2, diametro, diametro);
         FontMetrics fm = g.getFontMetrics();
         double textWidth = fm.getStringBounds(num + "", g).getWidth();
         g.setColor(Color.red);
-        g.drawString(num + "", (int) (x - textWidth / 2), (int) (y + fm.getMaxAscent() / 2));
+        g.drawString(num + "", (int) (x - textWidth / 2), (int) y + fm.getMaxAscent() / 2);
     }
 
-    public static void DibujarFlecha(Graphics g, int peso, int x0, int y0, int x1, int y1) {
+    //Grafica flecha con coordenadas dadas
+    public static void DibujarFlecha(Graphics g, int peso, double x0, double y0, double x1, double y1) {
+//        System.out.println("DibujarFlecha");
+        //flecha
         double alfa = Math.atan2(y1 - y0, x1 - x0);
         g.setColor(Color.black);
-        //linea principal
-        g.drawLine(x0, y0, x1, y1);
-        //flecha
+        g.drawLine((int) x0, (int) y0, (int) x1, (int) y1);
         int k = 8;
-        int xa = (int) (x1 - k * Math.cos(alfa + 1));
-        int ya = (int) (y1 - k * Math.sin(alfa + 1));
-        g.drawLine(xa, ya, x1, y1);
-        xa = (int) (x1 - k * Math.cos(alfa - 1));
-        ya = (int) (y1 - k * Math.sin(alfa - 1));
-        g.drawLine(xa, ya, x1, y1);
+        double xa = (x1 - k * Math.cos(alfa + 1));
+        double ya = (y1 - k * Math.sin(alfa + 1));
+        g.drawLine((int) xa, (int) ya, (int) x1, (int) y1);
+        xa = (x1 - k * Math.cos(alfa - 1));
+        ya = (y1 - k * Math.sin(alfa - 1));
+        g.drawLine((int) xa, (int) ya, (int) x1, (int) y1);
 
         //peso
         g.setColor(Color.red);
@@ -137,7 +165,9 @@ public class Graficar {
 
     }
 
+    //convierte la matriz entregada aleatoriamente a una matriz estatcia
     static int[][] Matriz_MatrizAdyacencia(int Matriz[][]) {
+//        System.out.println("Matriz_MatrizAdyacencia");
         int[][] matrizn = new int[Matriz.length][Matriz.length];
         for (int i = 0; i < Matriz.length; i++) {
             System.arraycopy(Matriz[i], 0, matrizn[i], 0, Matriz.length);
@@ -145,50 +175,44 @@ public class Graficar {
         return matrizn;
     }
 
-    public static void GraficarInicio(Graphics g, int Matriz[][]) {
-        System.out.println("entre a dibujar");
-        //matriz temp
-        matrizAdyacencia = null;
-        matrizAdyacencia = Matriz_MatrizAdyacencia(Matriz);
-        misNodosDibujados = null;
-        L = 150;
-        //particiones
-        int EntradaSalida = 0;
-        int Entrada = 0;
-        int Salida = 0;
-        for (int i = 0; i < matrizAdyacencia.length; i++) {
-            if ((matrizAdyacencia[0][i] != 0) && (matrizAdyacencia[i][0] != 0)) {
-                EntradaSalida++;
-            } else if ((matrizAdyacencia[0][i] != 0) && (matrizAdyacencia[i][0] == 0)) {
-                Entrada++;
-            } else if ((matrizAdyacencia[0][i] == 0) && (matrizAdyacencia[i][0] != 0)) {
-                Salida++;
-            }
-        }
-        int Particiones = EntradaSalida + Salida + Entrada; //depende de si es el mismo nodo el de salida y entrada o no
-
-        //dibujar nodo 1     
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    //Genera una posicion aleatoria
+    public static double[] GenerarPosicion() {
+//        System.out.println("GenerarPosicion");
+        double[] posicion = {0, 0};
         boolean sw = true;
-        int x = 0;
-        int y = 0;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double x = 0;
+        double y = 0;
         while (sw) {
-            x = (int) (Math.random() * screenSize.height);
-            y = (int) (Math.random() * screenSize.width);
+            x = (Math.random() * screenSize.height);
+            y = (Math.random() * screenSize.width);
             if (RangoPermitido(x, y)) {
                 sw = false;
             }
         }
+        posicion[0] = x;
+        posicion[1] = y;
+        return posicion;
+    }
 
+    //Grafica nodos adyacentes a 1
+    public static void GraficarInicio(Graphics g, int Matriz[][]) {
+//        System.out.println("GraficarInicio");
+        //Inicializar
+        matrizAdyacencia = null;
+        matrizAdyacencia = Matriz_MatrizAdyacencia(Matriz);
+        misNodosDibujados = null;
+
+        //dibujar nodo 1     
+        double[] Posicion = GenerarPosicion();
+        double x = Posicion[0];
+        double y = Posicion[1];
         GraficarNodo(g, Radio, x, y, 1);
         insertarNodo(1, x, y);
 
         //conexiones
-        double grados = 2 * Math.PI / Particiones;
-        double GradoActual = AnguloAleatorio(x, y);
-       
+        double GradoActual = AnguloAleatorio(Posicion[0], Posicion[1]);
         for (int i = 0; i < matrizAdyacencia.length; i++) {
-//            System.out.println(TamañoLista());
             if ((matrizAdyacencia[0][i] != 0) && (matrizAdyacencia[i][0] != 0)) {
                 EntradaSalida(g, x, y, matrizAdyacencia[0][i], matrizAdyacencia[i][0], i + 1, GradoActual);
                 matrizAdyacencia[0][i] = 0;
@@ -207,53 +231,49 @@ public class Graficar {
                 GradoActual = AnguloAleatorio(x, y);
             }
         }
-
         ConexionesDibujados(g);
     }
 
-    public static double AnguloAleatorio(int xn, int yn) {
-        //con numero grandes no sirve
+    //Genera el angulo de partida de la flecha
+    public static double AnguloAleatorio(double xn, double yn) {
+//        System.out.println("AnguloAleatorio");
         boolean sw = true;
         double Grados = 0;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int sx = screenSize.width;
         int sy = screenSize.height;
+        int i = 0;              
         while (sw) {
-            
             Grados = Math.random() * 2 * Math.PI;
-
             nodosDibujados p = misNodosDibujados;
             boolean sw1 = true;
             while (p != null) {
-                L = (int) (Math.random()*(sx - 60 - 90 * 2 - Radio));
+                L = (int) (Math.random() * (sx - 60 - 90 * 2 - Radio));
                 double xf = xn + Radio * Math.cos(Grados) + L * Math.cos(Grados) + Radio * Math.cos(Grados);
                 double yf = yn + Radio * Math.sin(Grados) + L * Math.sin(Grados) + Radio * Math.sin(Grados);
-                
-//                g.setColor(Color.black);
-//                g.fillOval((int)xf, (int)yf, 5, 5);
-//                g.setColor(Color.green);
-//                g.fillOval(p.x, p.y, 8, 8);
                 double distancia = Math.sqrt(Math.pow(xf - p.x, 2) + Math.pow(yf - p.y, 2));
-                //System.out.println("distancia: "+distancia);
-                if ((Radio >= distancia) || !(RangoPermitido(xf, yf))) {
+                if ((Radio * 4 >= distancia) || !(RangoPermitido(xf, yf))) {
                     sw1 = false;
                 }
                 p = p.link;
-
             }
             if (sw1 == true) {
                 sw = false;
-            } 
+            }else if(i > 10000){
+                sw = false;
+            }
+            i++;
         }
-
         return Grados;
     }
 
+    //Verifica que la matriz estatica esta llena de ceros
     public static boolean MatrizCeros() {
+//        System.out.println("MatrizCeros");
         boolean sw = true;
-        for (int i = 0; i < matrizAdyacencia.length; i++) {
+        for (int[] matrizAdyacencia1 : matrizAdyacencia) {
             for (int j = 0; j < matrizAdyacencia.length; j++) {
-                if (matrizAdyacencia[i][j] != 0) {
+                if (matrizAdyacencia1[j] != 0) {
                     sw = false;
                 }
             }
@@ -261,13 +281,12 @@ public class Graficar {
         return sw;
     }
 
+    //Dibuja las el resto de nodos y sus conecciones
     public static void ConexionesDibujados(Graphics g) {
-
+//        System.out.println("ConexionesDibujados");
         double GradoActual;
         boolean sw = true;
-        //encontrar grado a grafo que se quiere y L
         while (sw) {
-            
             for (int i = 0; i < matrizAdyacencia.length; i++) {
                 for (int j = 0; j < matrizAdyacencia.length; j++) {
                     if ((matrizAdyacencia[i][j] != 0) && (matrizAdyacencia[j][i] != 0)) {
@@ -280,7 +299,7 @@ public class Graficar {
                             } else {
                                 theta = Math.asin((posicionY(i + 1) - posicionY(j + 1)) / (distancia)) + Math.PI;
                             }
-                            EntradaSalida(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[j][i], matrizAdyacencia[i][j], j + 1, theta);
+                            FlechaEntradaSalida(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[j][i], matrizAdyacencia[i][j], theta);
                             matrizAdyacencia[i][j] = 0;
                             matrizAdyacencia[j][i] = 0;
                         } else if (dibujado(i + 1)) {
@@ -301,7 +320,7 @@ public class Graficar {
                             } else {
                                 theta = Math.asin((posicionY(i + 1) - posicionY(j + 1)) / (distancia)) + Math.PI;
                             }
-                            Salida(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[i][j], j + 1, theta);
+                            FlechaSalida(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[i][j], theta);
                             matrizAdyacencia[i][j] = 0;
                         } else if (dibujado(i + 1)) {
                             L = 150;
@@ -320,7 +339,7 @@ public class Graficar {
                             } else {
                                 theta = Math.asin((posicionY(i + 1) - posicionY(j + 1)) / (distancia)) + Math.PI;
                             }
-                            Entrada(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[j][i], j + 1, theta);
+                            FlechaEntrada(g, posicionX(i + 1), posicionY(i + 1), matrizAdyacencia[j][i], theta);
                             matrizAdyacencia[j][i] = 0;
                         } else if (dibujado(i + 1)) {
                             L = 150;
@@ -338,51 +357,83 @@ public class Graficar {
         }
     }
 
-    public static void EntradaSalida(Graphics g, int xn, int yn, int peso1, int peso2, int nodo, double GradoActual) {
+    //Grafica flecha de conexion bidireccional
+    public static void FlechaEntradaSalida(Graphics g, double xn, double yn, int peso1, int peso2, double GradoActual) {
+//        System.out.println("FlecaEntradaSalida");
         double xi = xn + Radio * Math.cos(GradoActual);
         double yi = yn + Radio * Math.sin(GradoActual);
         double xf = xi + L * Math.cos(GradoActual);
         double yf = yi + L * Math.sin(GradoActual);
 
         //flechaSalida
-        DibujarFlecha(g, peso1, (int) xi, (int) yi, (int) xf, (int) yf);
+        DibujarFlecha(g, peso1, xi, yi, xf, yf);
         //flecha entrada
-        DibujarFlecha(g, peso2, (int) xf, (int) yf, (int) xi, (int) yi);
-
-        //Nodo
-        GraficarNodo(g, Radio, (int) (xf + Radio * Math.cos(GradoActual)), (int) (yf + Radio * Math.sin(GradoActual)), nodo);
-        insertarNodo(nodo, (int) (xf + Radio * Math.cos(GradoActual)), (int) (yf + Radio * Math.sin(GradoActual)));
+        DibujarFlecha(g, peso2, xf, yf, xi, yi);
     }
 
-    public static void Salida(Graphics g, int xn, int yn, int peso, int nodo, double GradoActual) {
+    //Grafica nodo con conexion bidireccional 
+    public static void EntradaSalida(Graphics g, double xn, double yn, int peso1, int peso2, int nodo, double GradoActual) {
+//        System.out.println("EntradaSalida");
+        FlechaEntradaSalida(g, xn, yn, peso1, peso2, GradoActual);
+        double xf = xn + Radio * Math.cos(GradoActual) + L * Math.cos(GradoActual) + Radio * Math.cos(GradoActual);
+        double yf = yn + Radio * Math.sin(GradoActual) + L * Math.sin(GradoActual) + Radio * Math.sin(GradoActual);
+
+        //Nodo
+        GraficarNodo(g, Radio, xf, yf, nodo);
+        insertarNodo(nodo, xf, yf);
+    }
+
+    //Grafica flecha de conexion de salida
+    public static void FlechaSalida(Graphics g, double xn, double yn, int peso1, double GradoActual) {
+//        System.out.println("FlechaSalida");
         double xi = xn + Radio * Math.cos(GradoActual);
         double yi = yn + Radio * Math.sin(GradoActual);
         double xf = xi + L * Math.cos(GradoActual);
         double yf = yi + L * Math.sin(GradoActual);
 
         //flechaSalida
-        DibujarFlecha(g, peso, (int) xi, (int) yi, (int) xf, (int) yf);
-
-        //Nodo
-        GraficarNodo(g, Radio, (int) (xf + Radio * Math.cos(GradoActual)), (int) (yf + Radio * Math.sin(GradoActual)), nodo);
-        insertarNodo(nodo, (int) (xf + Radio * Math.cos(GradoActual)), (int) (yf + Radio * Math.sin(GradoActual)));
+        DibujarFlecha(g, peso1, xi, yi, xf, yf);
     }
 
-    public static void Entrada(Graphics g, int xn, int yn, int peso, int nodo, double GradoActual) {
+    //Grafica nodo con conexion de salida
+    public static void Salida(Graphics g, double xn, double yn, int peso, int nodo, double GradoActual) {
+//        System.out.println("Salida");
+        FlechaSalida(g, xn, yn, peso, GradoActual);
+        double xf = xn + Radio * Math.cos(GradoActual) + L * Math.cos(GradoActual) + Radio * Math.cos(GradoActual);
+        double yf = yn + Radio * Math.sin(GradoActual) + L * Math.sin(GradoActual) + Radio * Math.sin(GradoActual);
+
+        //Nodo
+        GraficarNodo(g, Radio, xf, yf, nodo);
+        insertarNodo(nodo, xf, yf);
+    }
+
+    //Grafica flecha de conexion de Entrada
+    public static void FlechaEntrada(Graphics g, double xn, double yn, int peso1, double GradoActual) {
+//        System.out.println("FlechaEntrada");
         double xi = xn + Radio * Math.cos(GradoActual);
         double yi = yn + Radio * Math.sin(GradoActual);
         double xf = xi + L * Math.cos(GradoActual);
         double yf = yi + L * Math.sin(GradoActual);
 
         //flecha entrada
-        DibujarFlecha(g, peso, (int) xf, (int) yf, (int) xi, (int) yi);
-
-        //Nodo
-        GraficarNodo(g, Radio, (int) (xf + Radio * Math.cos(GradoActual)), (int) (yf + Radio * Math.sin(GradoActual)), nodo);
-        insertarNodo(nodo, (int) (xf + Radio * Math.cos(GradoActual)), (int) (yf + Radio * Math.sin(GradoActual)));
+        DibujarFlecha(g, peso1, xf, yf, xi, yi);
     }
 
+    //Grafica nodo con conexion de Entrada
+    public static void Entrada(Graphics g, double xn, double yn, int peso, int nodo, double GradoActual) {
+//       System.out.println("Entrada");
+        FlechaEntrada(g, xn, yn, peso, GradoActual);
+        double xf = xn + Radio * Math.cos(GradoActual) + L * Math.cos(GradoActual) + Radio * Math.cos(GradoActual);
+        double yf = yn + Radio * Math.sin(GradoActual) + L * Math.sin(GradoActual) + Radio * Math.sin(GradoActual);
+
+        //Nodo
+        GraficarNodo(g, Radio, xf, yf, nodo);
+        insertarNodo(nodo, xf, yf);
+    }
+
+    //Devuelve si la posicion dada esta en el rango permitido
     public static boolean RangoPermitido(double x, double y) {
+//        System.out.println("RangoPermitido");
         boolean sw = true;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int sx = screenSize.width;

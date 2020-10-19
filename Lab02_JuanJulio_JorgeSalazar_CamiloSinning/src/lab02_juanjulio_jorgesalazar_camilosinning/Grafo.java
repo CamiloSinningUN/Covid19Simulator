@@ -7,13 +7,13 @@ public class Grafo {
 
     int cantidadNodos;
     int modoGrafo;
-    ListaNodos miListaNodos; //respesentando un grafo como lista
+    static ListaNodos miListaNodos; //respesentando un grafo como lista
     ListaNodos Infectados;
 
     public Grafo() {
         this.modoGrafo = -1;
         this.cantidadNodos = -1;
-        this.miListaNodos = null;
+        Grafo.miListaNodos = null;
     }
 
     //Crea el grafo a partir de una matriz y una lista de adyacencia
@@ -25,9 +25,9 @@ public class Grafo {
 
             System.out.println("");
             System.out.println("Matriz de adyacencia:");
-            for (int i = 0; i < Adyacencia.length; i++) {
+            for (int[] Adyacencia1 : Adyacencia) {
                 for (int j = 0; j < Adyacencia.length; j++) {
-                    System.out.print(Adyacencia[i][j]);
+                    System.out.print(Adyacencia1[j]);
                 }
                 System.out.println("");
             }
@@ -69,11 +69,10 @@ public class Grafo {
     boolean ConNodosAislados(int Matriz[][]) {
         boolean Aislados = false;
         int i = 0, j = 0, aux = 0, acum = 0, acum2 = 0;
-        System.out.println("entre");
+
         while (i < cantidadNodos) {
-            System.out.println("entre 1");
+
             while (j < cantidadNodos) {
-                System.out.println("entre 2");
                 acum = Matriz[i][j] + acum;
                 j++;
             }
@@ -93,13 +92,11 @@ public class Grafo {
             acum2 = 0;
 
         }
-        System.out.println("sali");
         return Aislados;
     }
 
     //Crea una lista donde cada nodo tendrá las características de los nodos del grafo
     public void GrafoComoLista(Graphics g, int Matriz[][]) {
-        System.out.println("entre a lista");
         int i = 0;
         ListaNodos p;
         int infectado;
@@ -162,15 +159,15 @@ public class Grafo {
 
     //Función que actualiza la lista con los infectados
     public void ActualizaInfectados(Graphics g, int infectado, int Matriz[][]) {
-        System.out.println("entre a actializar");
         ListaNodos p;
 
         p = miListaNodos;
         while (p.minodo.id != infectado) {
             p = p.link;
         }
-        p.minodo.miPersona.enfermo = 1;
-        Graficar.GraficarInicio(g, Matriz);
+        p.minodo.miPersona.enfermo = 1; 
+        System.out.println("vo a dibujar");
+        Graficar.GraficarInicio(g, Matriz);       
     }
 
     //Crea una multilista con los grafos y sus conexiones a partir de la lista ya creada

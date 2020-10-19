@@ -5,20 +5,19 @@
  */
 package lab02_juanjulio_jorgesalazar_camilosinning;
 
-
 import java.awt.Dimension;
 
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-
+import javax.swing.Timer;
 
 public class JCS extends javax.swing.JFrame {
 
     Grafo grafo = new Grafo();
-    
+
     public JCS() {
-        initComponents();   
+        initComponents();
         initialSettings.setVisible(true);
         initialSettings.setLocationRelativeTo(null);
 
@@ -51,7 +50,6 @@ public class JCS extends javax.swing.JFrame {
         //Fin ubicar UI       
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -457,6 +455,37 @@ public class JCS extends javax.swing.JFrame {
 
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
 
+//        System.out.println("entre");
+//        Runnable runnable;
+//        runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                // Esto se ejecuta en segundo plano una única vez
+//                while (true) {
+//                    // Pero usamos un truco y hacemos un ciclo infinito
+//                    try {
+//                        // En él, hacemos que el hilo duerma
+//                        Thread.sleep(1000);
+//                        // Y después realizamos las operaciones
+//                        int[][] nose = grafo.MatrizAdyacencia();
+//                        System.out.println("Una matriz");
+//                        for (int j = 0; j < nose.length; j++) {
+//                            for (int k = 0; k < nose.length; k++) {
+//                                System.out.print(nose[j][k]);
+//                            }
+//                            System.out.println("");
+//                        }
+//                        
+//                        // Así, se da la impresión de que se ejecuta cada cierto tiempo
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        };
+//        Thread hilo = new Thread(runnable);
+//        hilo.start();
+
     }//GEN-LAST:event_playButtonActionPerformed
 
     private void nodosTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nodosTextFieldActionPerformed
@@ -516,12 +545,12 @@ public class JCS extends javax.swing.JFrame {
 
         setVisible(false);
         initialSettings.setVisible(true);
-        i=1;
+        i = 1;
 
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void closeButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_closeButtonKeyPressed
-       if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.exit(0);
         }
     }//GEN-LAST:event_closeButtonKeyPressed
