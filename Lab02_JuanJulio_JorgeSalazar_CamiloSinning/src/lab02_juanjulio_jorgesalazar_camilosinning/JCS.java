@@ -58,10 +58,9 @@ public class JCS extends javax.swing.JFrame {
         tablero.setLocation(settingsPanel.getLocation().x + settingsPanel.getSize().width + 15, styleLabel.getLocation().y + styleLabel.getSize().height);
         tablero.setSize(sx - tablero.getLocation().x * 2, sy - tablero.getLocation().y - 50);
         //Fin ubicar UI
-        
+
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -427,6 +426,9 @@ public class JCS extends javax.swing.JFrame {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tableroMousePressed(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tableroMouseReleased(evt);
+            }
         });
 
         javax.swing.GroupLayout tableroLayout = new javax.swing.GroupLayout(tablero);
@@ -551,7 +553,7 @@ public class JCS extends javax.swing.JFrame {
         maskRandomButton.setEnabled(false);
         allMaskButton.setEnabled(true);
         grafo.modoGrafo = 2;
-        
+
     }//GEN-LAST:event_maskRandomButtonActionPerformed
 
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
@@ -665,7 +667,7 @@ public class JCS extends javax.swing.JFrame {
     }//GEN-LAST:event_nextButtonMouseClicked
 
     private void tableroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableroMouseClicked
-        nodeInformation.setVisible(false);
+
         // TODO add your handling code here:
     }//GEN-LAST:event_tableroMouseClicked
 
@@ -683,9 +685,14 @@ public class JCS extends javax.swing.JFrame {
             }
 
             p = p.link;
-        }        
+        }
 // TODO add your handling code here:
     }//GEN-LAST:event_tableroMousePressed
+
+    private void tableroMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableroMouseReleased
+        nodeInformation.setVisible(false);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableroMouseReleased
 
     /**
      * @param args the command line arguments
