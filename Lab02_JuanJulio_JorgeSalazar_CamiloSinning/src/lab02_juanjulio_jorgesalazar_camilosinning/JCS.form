@@ -338,7 +338,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Camino de contagio"/>
+                <Property name="text" type="java.lang.String" value="Camino de contagio:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">

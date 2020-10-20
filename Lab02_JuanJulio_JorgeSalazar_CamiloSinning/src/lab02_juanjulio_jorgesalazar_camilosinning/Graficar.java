@@ -102,7 +102,7 @@ public class Graficar {
 
     //Grafica un nodo en coordenadas dadas
     public static void GraficarNodo(Graphics g, int diametro, double x, double y, int num) {
-//        System.out.println("GraficarNodo");
+//      System.out.println("GraficarNodo");
         g.setColor(Color.blue);
         if (PersonaEnferma(num)) {
             g.setColor(Color.red);

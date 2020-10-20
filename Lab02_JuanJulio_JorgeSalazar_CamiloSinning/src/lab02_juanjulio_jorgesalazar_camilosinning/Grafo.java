@@ -11,7 +11,7 @@ public class Grafo {
     ListaNodos Infectados;
     static boolean sw = true;
     int[][] Adyacencia = null;
-    
+
     public Grafo() {
         this.modoGrafo = -1;
         this.cantidadNodos = -1;
@@ -20,10 +20,10 @@ public class Grafo {
 
     //Crea el grafo a partir de una matriz y una lista de adyacencia
     public void InicioGrafo(Graphics g) {
-        boolean sw = true;
+        boolean sw1 = true;
         //int[][] Adyacencia = null;
-        
-        while (sw) {
+
+        while (sw1) {
             Adyacencia = MatrizAdyacencia();
 
             System.out.println("");
@@ -36,7 +36,7 @@ public class Grafo {
             }
             if (!ConNodosAislados(Adyacencia)) {
 
-                sw = false;
+                sw1 = false;
             }
         }
 
@@ -167,10 +167,10 @@ public class Grafo {
             p = p.link;
         }
         p.minodo.miPersona.enfermo = 1;
-        System.out.println("vo a dibujar");
         if (sw == true) {
-            Graficar.GraficarInicio(g, Matriz);
+            System.out.println("vo a dibujar");
             sw = false;
+            Graficar.GraficarInicio(g, Matriz);
         }
     }
 
@@ -216,8 +216,7 @@ public class Grafo {
         p = miListaNodos;
 
         while (p != null) {
-            System.out.println("me quede");
-            while ((p!= null) && (p.minodo.miPersona.enfermo == 0) ) {
+            while ((p != null) && (p.minodo.miPersona.enfermo == 0)) {
                 p = p.link;
             }
             if (p != null) {
@@ -225,7 +224,7 @@ public class Grafo {
             }
             if ((p != null) && (p.link != null)) {
                 p = p.link;
-            }else{
+            } else {
                 p = null;
             }
         }
@@ -239,11 +238,13 @@ public class Grafo {
     //Calcula el próximo contagiado en caso de que lo haya según las probabilidades dadas por el lab
     public void ProximosEnfermos(Graphics g, ListaNodos p, int Matriz[][]) {
         ListaNodos aux;
-
+//        System.out.println(p.minodo.id);
+//        System.out.println(p.linkIncidentes.minodo.id);
         if (p.linkIncidentes != null) {
             aux = p.linkIncidentes;
+
             while (aux != null) {
-                while (aux != null && aux.minodo.miPersona.enfermo == 1) {
+                while ((aux != null) && (aux.minodo.miPersona.enfermo == 1)) {
                     aux = aux.linkIncidentes;
                 }
                 if (aux != null) {
@@ -309,6 +310,7 @@ public class Grafo {
 
     ////Calcula mediente la probabilidad definida previamiente si el posible infectado es infectado o no
     public void CalculaProbabilidades(Graphics g, ListaNodos p, ListaNodos aux, int Matriz[][]) {
+        System.out.println(aux.minodo.id);
         if ((p.minodo.miPersona.mascarilla == 0) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
             //ListaNodos q;
             int prob;
@@ -530,7 +532,7 @@ public class Grafo {
                 CalculaProbabilidades(g, p, aux, Matriz);
             }*/
         }
+        System.out.println(aux.minodo.id);
     }
-
 
 }

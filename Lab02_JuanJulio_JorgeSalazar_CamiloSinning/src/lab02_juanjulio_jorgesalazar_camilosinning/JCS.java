@@ -5,21 +5,13 @@
  */
 package lab02_juanjulio_jorgesalazar_camilosinning;
 
-import Listas.ListaNodos;
 import java.awt.Color;
 import java.awt.Dimension;
-
 import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.Timer;
-import static lab02_juanjulio_jorgesalazar_camilosinning.Graficar.misNodosDibujados;
 
 public class JCS extends javax.swing.JFrame {
 
@@ -255,7 +247,7 @@ public class JCS extends javax.swing.JFrame {
 
         jLabel1.setText("Marcarilla:");
 
-        jLabel5.setText("Camino de contagio");
+        jLabel5.setText("Camino de contagio:");
 
         jLabel6.setText("None");
 
@@ -610,7 +602,9 @@ public class JCS extends javax.swing.JFrame {
     }//GEN-LAST:event_allMaskButtonActionPerformed
 
     private void closeButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButton1ActionPerformed
+        
         System.exit(0);
+        
     }//GEN-LAST:event_closeButton1ActionPerformed
 
     private void errorLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_errorLabelMouseClicked
@@ -655,12 +649,15 @@ public class JCS extends javax.swing.JFrame {
         initialSettings.setVisible(true);
         i = 1;
         Grafo.sw = true;
+        
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void closeButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_closeButtonKeyPressed
+        
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.exit(0);
         }
+        
     }//GEN-LAST:event_closeButtonKeyPressed
 
     private void tableroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableroMouseEntered
@@ -672,11 +669,11 @@ public class JCS extends javax.swing.JFrame {
     }//GEN-LAST:event_nextButtonMouseClicked
 
     private void tableroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableroMouseClicked
-
         // TODO add your handling code here:
     }//GEN-LAST:event_tableroMouseClicked
 
     private void tableroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableroMousePressed
+        
         Point point = MouseInfo.getPointerInfo().getLocation();
         int x = point.x;
         int y = point.y;
@@ -691,15 +688,17 @@ public class JCS extends javax.swing.JFrame {
 
             p = p.link;
         }
-// TODO add your handling code here:
+
     }//GEN-LAST:event_tableroMousePressed
 
     private void tableroMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableroMouseReleased
+        
         nodeInformation.setVisible(false);
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_tableroMouseReleased
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        
         Graphics g = tablero.getGraphics();
         grafo.Iteracion(g, grafo.Adyacencia);
         nodosDibujados p = Graficar.misNodosDibujados;
@@ -711,7 +710,6 @@ public class JCS extends javax.swing.JFrame {
             p = p.link;
         }
 
-        // TODO add your handling code here:
     }//GEN-LAST:event_nextButtonActionPerformed
 
     /**
