@@ -39,7 +39,6 @@ public class Grafo {
             }
         }
 
-        System.out.println("entre aca");
         GrafoComoLista(g, Adyacencia);
     }
 
