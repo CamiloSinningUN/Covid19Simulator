@@ -9,6 +9,7 @@ public class Grafo {
     int modoGrafo;
     static ListaNodos miListaNodos; //respesentando un grafo como lista
     ListaNodos Infectados;
+    boolean sw = true;
 
     public Grafo() {
         this.modoGrafo = -1;
@@ -165,9 +166,12 @@ public class Grafo {
         while (p.minodo.id != infectado) {
             p = p.link;
         }
-        p.minodo.miPersona.enfermo = 1; 
+        p.minodo.miPersona.enfermo = 1;
         System.out.println("vo a dibujar");
-        Graficar.GraficarInicio(g, Matriz);       
+        if (sw == true) {
+            Graficar.GraficarInicio(g, Matriz);
+            sw = false;
+        }
     }
 
     //Crea una multilista con los grafos y sus conexiones a partir de la lista ya creada
@@ -188,11 +192,9 @@ public class Grafo {
                     }
                     if ((p != null) && (p.linkIncidentes == null)) {
                         p.linkIncidentes = q;
-
                         q.linkIncidentes = null;
                     } else {
                         while ((p != null) && (p.linkIncidentes != null)) {
-
                             p = p.linkIncidentes;
                         }
                         if (p != null) {
@@ -203,13 +205,14 @@ public class Grafo {
                 }
                 j++;
             }
+            j = 0;
             i++;
         }
     }
 
     //Se encarga de generar las iteraciones en simulador y actualizar 
     public void Iteracion(Graphics g, int Matriz[][]) {
-        ListaNodos p;
+        ListaNodos p, q;
         p = miListaNodos;
 
         while (p != null) {
@@ -218,12 +221,16 @@ public class Grafo {
             }
             if (p != null) {
                 ProximosEnfermos(g, p, Matriz);
-            } else {
-                break;
             }
-            p = p.link;
+            if ((p != null) && (p.link != null)) {
+                p = p.link;
+            }
         }
-        //Aquí acaba la iteración y se debe llamar a actualizar con la lista de los nuevos enfermos
+        /*q = Infectados;
+        while (q != null) {
+            ActualizaInfectados(g, q.minodo.id, Matriz);
+        }*/
+        Graficar.GraficarInicio(g, Matriz);
     }
 
     //Calcula el próximo contagiado en caso de que lo haya según las probabilidades dadas por el lab
@@ -232,11 +239,14 @@ public class Grafo {
 
         if (p.linkIncidentes != null) {
             aux = p.linkIncidentes;
-            while (aux != null && aux.minodo.miPersona.enfermo == 1) {
-                aux = aux.linkIncidentes;
-            }
-            if (aux == null) {
-                if (p.link != null) {
+            while (aux != null) {
+                while (aux != null && aux.minodo.miPersona.enfermo == 1) {
+                    aux = aux.linkIncidentes;
+                }
+                if (aux != null) {
+                    CalculaProbabilidades(g, p, aux, Matriz);
+                    aux = aux.linkIncidentes;
+                    /*if (p.link != null) {
                     p = p.link;
                     while (p != null && p.minodo.miPersona.enfermo == 0) {
                         p = p.link;
@@ -250,11 +260,11 @@ public class Grafo {
                 } else {
                     //Se terminó la simulación
                     //Se puede crear un JOptionPane o algo
+                }*/
                 }
-            } else {
-                CalculaProbabilidades(g, p, aux, Matriz);
             }
-        } else {
+        }
+        /*else {
             if (p.link != null) {
                 p = p.link;
                 while (p != null && p.minodo.miPersona.enfermo == 0) {
@@ -291,17 +301,18 @@ public class Grafo {
                     }
                 }
             }
-        }
+        }*/
     }
 
+    ////Calcula mediente la probabilidad definida previamiente si el posible infectado es infectado o no
     public void CalculaProbabilidades(Graphics g, ListaNodos p, ListaNodos aux, int Matriz[][]) {
         if (p.minodo.miPersona.mascarilla == 0 && aux.minodo.miPersona.mascarilla == 0 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2) {
-            ListaNodos q;
+            //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 80) {
                 ActualizaInfectados(g, aux.minodo.id, Matriz);
-                ListaNodos k = Infectados;
+                /*ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
                 if (Infectados == null) {
@@ -312,22 +323,26 @@ public class Grafo {
                     }
                     q.link = k;
                     k.link = null;
-                }
+                }*/
             }
+            /*
             if (aux.linkIncidentes != null) {
+
                 aux = aux.linkIncidentes;
                 while (aux != null && aux.minodo.miPersona.enfermo == 1) {
                     aux = aux.linkIncidentes;
                 }
-                CalculaProbabilidades(g, p, aux, Matriz);
-            }
+                if (aux != null) {
+                    CalculaProbabilidades(g, p, aux, Matriz);
+                }
+            }*/
         } else if (p.minodo.miPersona.mascarilla == 0 && aux.minodo.miPersona.mascarilla == 0 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2) {
-            ListaNodos q;
+            //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 90) {
                 ActualizaInfectados(g, aux.minodo.id, Matriz);
-                ListaNodos k = Infectados;
+                /*ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
                 if (Infectados == null) {
@@ -338,23 +353,24 @@ public class Grafo {
                     }
                     q.link = k;
                     k.link = null;
-                }
+                }*/
                 //Se mete en una lista para los nuevos infectados en la iteración actual
             }
+            /*
             if (aux.linkIncidentes != null) {
                 aux = aux.linkIncidentes;
                 while (aux != null && aux.minodo.miPersona.enfermo == 1) {
                     aux = aux.linkIncidentes;
                 }
                 CalculaProbabilidades(g, p, aux, Matriz);
-            }
+            }*/
         } else if (p.minodo.miPersona.mascarilla == 0 && aux.minodo.miPersona.mascarilla == 1 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2) {
-            ListaNodos q;
+            //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 40) {
                 ActualizaInfectados(g, aux.minodo.id, Matriz);
-                ListaNodos k = Infectados;
+                /*ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
                 if (Infectados == null) {
@@ -365,23 +381,23 @@ public class Grafo {
                     }
                     q.link = k;
                     k.link = null;
-                }
+                }*/
                 //Se mete en una lista para los nuevos infectados en la iteración actual
-            }
+            }/*
             if (aux.linkIncidentes != null) {
                 aux = aux.linkIncidentes;
                 while (aux != null && aux.minodo.miPersona.enfermo == 1) {
                     aux = aux.linkIncidentes;
                 }
                 CalculaProbabilidades(g, p, aux, Matriz);
-            }
+            }*/
         } else if (p.minodo.miPersona.mascarilla == 0 && aux.minodo.miPersona.mascarilla == 1 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2) {
-            ListaNodos q;
+            //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 60) {
                 ActualizaInfectados(g, aux.minodo.id, Matriz);
-                ListaNodos k = Infectados;
+                /*ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
                 if (Infectados == null) {
@@ -392,23 +408,23 @@ public class Grafo {
                     }
                     q.link = k;
                     k.link = null;
-                }
+                }*/
                 //Se mete en una lista para los nuevos infectados en la iteración actual
-            }
+            }/*
             if (aux.linkIncidentes != null) {
                 aux = aux.linkIncidentes;
                 while (aux != null && aux.minodo.miPersona.enfermo == 1) {
                     aux = aux.linkIncidentes;
                 }
                 CalculaProbabilidades(g, p, aux, Matriz);
-            }
+            }*/
         } else if (p.minodo.miPersona.mascarilla == 1 && aux.minodo.miPersona.mascarilla == 0 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2) {
-            ListaNodos q;
+            //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 30) {
                 ActualizaInfectados(g, aux.minodo.id, Matriz);
-                ListaNodos k = Infectados;
+                /*ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
                 if (Infectados == null) {
@@ -419,23 +435,23 @@ public class Grafo {
                     }
                     q.link = k;
                     k.link = null;
-                }
+                }*/
                 //Se mete en una lista para los nuevos infectados en la iteración actual
-            }
+            }/*
             if (aux.linkIncidentes != null) {
                 aux = aux.linkIncidentes;
                 while (aux != null && aux.minodo.miPersona.enfermo == 1) {
                     aux = aux.linkIncidentes;
                 }
                 CalculaProbabilidades(g, p, aux, Matriz);
-            }
+            }*/
         } else if (p.minodo.miPersona.mascarilla == 1 && aux.minodo.miPersona.mascarilla == 0 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2) {
-            ListaNodos q;
+            //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 40) {
                 ActualizaInfectados(g, aux.minodo.id, Matriz);
-                ListaNodos k = Infectados;
+                /*ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
                 if (Infectados == null) {
@@ -446,23 +462,23 @@ public class Grafo {
                     }
                     q.link = k;
                     k.link = null;
-                }
+                }*/
                 //Se mete en una lista para los nuevos infectados en la iteración actual
-            }
+            }/*
             if (aux.linkIncidentes != null) {
                 aux = aux.linkIncidentes;
                 while (aux != null && aux.minodo.miPersona.enfermo == 1) {
                     aux = aux.linkIncidentes;
                 }
                 CalculaProbabilidades(g, p, aux, Matriz);
-            }
+            }*/
         } else if (p.minodo.miPersona.mascarilla == 1 && aux.minodo.miPersona.mascarilla == 1 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2) {
-            ListaNodos q;
+            //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 20) {
                 ActualizaInfectados(g, aux.minodo.id, Matriz);
-                ListaNodos k = Infectados;
+                /*ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
                 if (Infectados == null) {
@@ -473,23 +489,23 @@ public class Grafo {
                     }
                     q.link = k;
                     k.link = null;
-                }
+                }*/
                 //Se mete en una lista para los nuevos infectados en la iteración actual
-            }
+            }/*
             if (aux.linkIncidentes != null) {
                 aux = aux.linkIncidentes;
                 while (aux != null && aux.minodo.miPersona.enfermo == 1) {
                     aux = aux.linkIncidentes;
                 }
                 CalculaProbabilidades(g, p, aux, Matriz);
-            }
+            }*/
         } else if (p.minodo.miPersona.mascarilla == 1 && aux.minodo.miPersona.mascarilla == 1 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2) {
-            ListaNodos q;
+            //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 30) {
                 ActualizaInfectados(g, aux.minodo.id, Matriz);
-                ListaNodos k = Infectados;
+                /*ListaNodos k = Infectados;
                 q = Infectados;
                 k.minodo.id = aux.minodo.id;
                 if (Infectados == null) {
@@ -500,16 +516,18 @@ public class Grafo {
                     }
                     q.link = k;
                     k.link = null;
-                }
+                }*/
                 //Se mete en una lista para los nuevos infectados en la iteración actual
-            }
+            }/*
             if (aux.linkIncidentes != null) {
                 aux = aux.linkIncidentes;
                 while (aux != null && aux.minodo.miPersona.enfermo == 1) {
                     aux = aux.linkIncidentes;
                 }
                 CalculaProbabilidades(g, p, aux, Matriz);
-            }
+            }*/
         }
     }
+
+
 }
