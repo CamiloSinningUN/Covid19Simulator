@@ -9,8 +9,9 @@ public class Grafo {
     int modoGrafo;
     static ListaNodos miListaNodos; //respesentando un grafo como lista
     ListaNodos Infectados;
-    boolean sw = true;
-
+    static boolean sw = true;
+    int[][] Adyacencia = null;
+    
     public Grafo() {
         this.modoGrafo = -1;
         this.cantidadNodos = -1;
@@ -20,7 +21,8 @@ public class Grafo {
     //Crea el grafo a partir de una matriz y una lista de adyacencia
     public void InicioGrafo(Graphics g) {
         boolean sw = true;
-        int[][] Adyacencia = null;
+        //int[][] Adyacencia = null;
+        
         while (sw) {
             Adyacencia = MatrizAdyacencia();
 
@@ -32,7 +34,6 @@ public class Grafo {
                 }
                 System.out.println("");
             }
-
             if (!ConNodosAislados(Adyacencia)) {
 
                 sw = false;

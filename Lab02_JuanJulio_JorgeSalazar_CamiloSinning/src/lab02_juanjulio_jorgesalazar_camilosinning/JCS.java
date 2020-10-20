@@ -23,7 +23,8 @@ import static lab02_juanjulio_jorgesalazar_camilosinning.Graficar.misNodosDibuja
 public class JCS extends javax.swing.JFrame {
 
     Grafo grafo = new Grafo();
-
+    int vertices = 0;
+    
     public JCS() {
         initComponents();
 
@@ -646,7 +647,7 @@ public class JCS extends javax.swing.JFrame {
         setVisible(false);
         initialSettings.setVisible(true);
         i = 1;
-
+        Grafo.sw = true;
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void closeButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_closeButtonKeyPressed
