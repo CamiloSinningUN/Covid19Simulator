@@ -5,12 +5,20 @@
  */
 package lab02_juanjulio_jorgesalazar_camilosinning;
 
+import Listas.ListaNodos;
 import java.awt.Dimension;
 
 import java.awt.Graphics;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import static lab02_juanjulio_jorgesalazar_camilosinning.Graficar.misNodosDibujados;
 
 public class JCS extends javax.swing.JFrame {
 
@@ -18,6 +26,7 @@ public class JCS extends javax.swing.JFrame {
 
     public JCS() {
         initComponents();
+
         initialSettings.setVisible(true);
         initialSettings.setLocationRelativeTo(null);
 
@@ -47,9 +56,11 @@ public class JCS extends javax.swing.JFrame {
         //ubicar tablero
         tablero.setLocation(settingsPanel.getLocation().x + settingsPanel.getSize().width + 15, styleLabel.getLocation().y + styleLabel.getSize().height);
         tablero.setSize(sx - tablero.getLocation().x * 2, sy - tablero.getLocation().y - 50);
-        //Fin ubicar UI       
+        //Fin ubicar UI
+        
     }
 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -66,6 +77,12 @@ public class JCS extends javax.swing.JFrame {
         closeButton1 = new javax.swing.JButton();
         errorLabel = new javax.swing.JTextField();
         errorLabel1 = new javax.swing.JTextField();
+        nodeInformation = new javax.swing.JDialog();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         backgroundPanel = new javax.swing.JPanel();
         closeButton = new javax.swing.JButton();
         numberLabel = new javax.swing.JLabel();
@@ -83,8 +100,9 @@ public class JCS extends javax.swing.JFrame {
             public void paint(Graphics g){
                 if(i==1){
                     grafo.InicioGrafo(g);
-                    i++;     
-                }      
+                    i++;
+                }
+
             }
         }
         ;
@@ -227,6 +245,70 @@ public class JCS extends javax.swing.JFrame {
 
         initialSettings.getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
+        nodeInformation.setMinimumSize(new java.awt.Dimension(122, 90));
+        nodeInformation.setUndecorated(true);
+        nodeInformation.setPreferredSize(new java.awt.Dimension(122, 90));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setMinimumSize(new java.awt.Dimension(120, 88));
+
+        jLabel1.setText("Marcarilla:");
+
+        jLabel5.setText("Camino de contagio");
+
+        jLabel6.setText("None");
+
+        jLabel7.setText("1,2,3,4");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addContainerGap(18, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(30, 30, 30)
+                            .addComponent(jLabel7)))
+                    .addContainerGap(16, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel6))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(37, 37, 37)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel7)
+                    .addContainerGap(15, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout nodeInformationLayout = new javax.swing.GroupLayout(nodeInformation.getContentPane());
+        nodeInformation.getContentPane().setLayout(nodeInformationLayout);
+        nodeInformationLayout.setHorizontalGroup(
+            nodeInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        nodeInformationLayout.setVerticalGroup(
+            nodeInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(JCS.MAXIMIZED_BOTH);
         setUndecorated(true);
@@ -254,6 +336,7 @@ public class JCS extends javax.swing.JFrame {
 
         numberLabel.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 48)); // NOI18N
         numberLabel.setText("0");
+        numberLabel.setToolTipText("Contador");
         backgroundPanel.add(numberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 40, 20, -1));
 
         styleLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/contador.png"))); // NOI18N
@@ -276,6 +359,11 @@ public class JCS extends javax.swing.JFrame {
         nextButton.setBorderPainted(false);
         nextButton.setContentAreaFilled(false);
         nextButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        nextButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nextButtonMouseClicked(evt);
+            }
+        });
         backgroundPanel.add(nextButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, 80, -1));
 
         settingsPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -328,6 +416,17 @@ public class JCS extends javax.swing.JFrame {
 
         tablero.setBackground(new java.awt.Color(255, 255, 255));
         tablero.setAutoscrolls(true);
+        tablero.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableroMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tableroMouseEntered(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tableroMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout tableroLayout = new javax.swing.GroupLayout(tablero);
         tablero.setLayout(tableroLayout);
@@ -433,6 +532,7 @@ public class JCS extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             errorLabel.setText("Invalido");
         }
+
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void withoutMaskButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withoutMaskButtonActionPerformed
@@ -450,7 +550,7 @@ public class JCS extends javax.swing.JFrame {
         maskRandomButton.setEnabled(false);
         allMaskButton.setEnabled(true);
         grafo.modoGrafo = 2;
-
+        
     }//GEN-LAST:event_maskRandomButtonActionPerformed
 
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
@@ -555,6 +655,37 @@ public class JCS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_closeButtonKeyPressed
 
+    private void tableroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableroMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableroMouseEntered
+
+    private void nextButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nextButtonMouseClicked
+
+    private void tableroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableroMouseClicked
+        nodeInformation.setVisible(false);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableroMouseClicked
+
+    private void tableroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableroMousePressed
+        Point point = MouseInfo.getPointerInfo().getLocation();
+        int x = point.x;
+        int y = point.y;
+        y = y - tablero.getLocation().y;
+        x = x - tablero.getLocation().x;
+        nodosDibujados p = Graficar.misNodosDibujados;
+        while (p != null) {
+            if ((y < (p.y + Graficar.Radio / 2)) && (y > (p.y - Graficar.Radio / 2)) && (x > (p.x - Graficar.Radio / 2)) && (x < (p.x + Graficar.Radio / 2))) {
+                nodeInformation.setVisible(true);
+                nodeInformation.setLocation(x, y);
+            }
+
+            p = p.link;
+        }        
+// TODO add your handling code here:
+    }//GEN-LAST:event_tableroMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -600,13 +731,19 @@ public class JCS extends javax.swing.JFrame {
     private javax.swing.JTextField errorLabel;
     private javax.swing.JTextField errorLabel1;
     private javax.swing.JDialog initialSettings;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton maskRandomButton;
     private javax.swing.JButton maskRandomButton1;
     private javax.swing.JButton nextButton;
+    private javax.swing.JDialog nodeInformation;
     private javax.swing.JTextField nodosTextField;
     private javax.swing.JLabel numberLabel;
     private javax.swing.JLabel numberNodesLabel;

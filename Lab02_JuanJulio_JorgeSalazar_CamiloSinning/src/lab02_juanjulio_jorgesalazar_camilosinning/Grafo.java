@@ -38,7 +38,6 @@ public class Grafo {
             }
         }
 
-        System.out.println("entre aca");
         GrafoComoLista(g, Adyacencia);
     }
 
@@ -166,7 +165,6 @@ public class Grafo {
             p = p.link;
         }
         p.minodo.miPersona.enfermo = 1; 
-        System.out.println("vo a dibujar");
         Graficar.GraficarInicio(g, Matriz);       
     }
 
