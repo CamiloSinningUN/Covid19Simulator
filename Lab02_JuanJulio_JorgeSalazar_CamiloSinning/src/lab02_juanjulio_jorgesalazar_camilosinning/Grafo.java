@@ -216,7 +216,8 @@ public class Grafo {
         p = miListaNodos;
 
         while (p != null) {
-            while (p.minodo.miPersona.enfermo == 0) {
+            System.out.println("me quede");
+            while ((p!= null) && (p.minodo.miPersona.enfermo == 0) ) {
                 p = p.link;
             }
             if (p != null) {
@@ -230,7 +231,7 @@ public class Grafo {
         while (q != null) {
             ActualizaInfectados(g, q.minodo.id, Matriz);
         }*/
-        Graficar.GraficarInicio(g, Matriz);
+//        Graficar.GraficarInicio(g, Matriz);
     }
 
     //Calcula el próximo contagiado en caso de que lo haya según las probabilidades dadas por el lab

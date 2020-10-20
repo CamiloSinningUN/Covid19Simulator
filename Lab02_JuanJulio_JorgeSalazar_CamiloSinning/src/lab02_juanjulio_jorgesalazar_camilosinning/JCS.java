@@ -6,6 +6,7 @@
 package lab02_juanjulio_jorgesalazar_camilosinning;
 
 import Listas.ListaNodos;
+import java.awt.Color;
 import java.awt.Dimension;
 
 import java.awt.Graphics;
@@ -24,7 +25,7 @@ public class JCS extends javax.swing.JFrame {
 
     Grafo grafo = new Grafo();
     int vertices = 0;
-    
+
     public JCS() {
         initComponents();
 
@@ -247,7 +248,6 @@ public class JCS extends javax.swing.JFrame {
 
         nodeInformation.setMinimumSize(new java.awt.Dimension(122, 90));
         nodeInformation.setUndecorated(true);
-        nodeInformation.setPreferredSize(new java.awt.Dimension(122, 90));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -362,6 +362,11 @@ public class JCS extends javax.swing.JFrame {
         nextButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 nextButtonMouseClicked(evt);
+            }
+        });
+        nextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtonActionPerformed(evt);
             }
         });
         backgroundPanel.add(nextButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, 80, -1));
@@ -693,6 +698,21 @@ public class JCS extends javax.swing.JFrame {
         nodeInformation.setVisible(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_tableroMouseReleased
+
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        Graphics g = tablero.getGraphics();
+        grafo.Iteracion(g, grafo.Adyacencia);
+        nodosDibujados p = Graficar.misNodosDibujados;
+        while (p != null) {
+            if (Graficar.PersonaEnferma(p.numero)) {
+                g.setColor(Color.red);
+               g.drawOval((int)p.x-Graficar.Radio/2,(int) p.y-Graficar.Radio/2, Graficar.Radio, Graficar.Radio);
+            }
+            p = p.link;
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nextButtonActionPerformed
 
     /**
      * @param args the command line arguments
