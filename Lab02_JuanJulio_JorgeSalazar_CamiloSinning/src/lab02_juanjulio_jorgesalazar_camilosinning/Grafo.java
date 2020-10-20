@@ -225,6 +225,8 @@ public class Grafo {
             }
             if ((p != null) && (p.link != null)) {
                 p = p.link;
+            }else{
+                p = null;
             }
         }
         /*q = Infectados;
@@ -307,7 +309,7 @@ public class Grafo {
 
     ////Calcula mediente la probabilidad definida previamiente si el posible infectado es infectado o no
     public void CalculaProbabilidades(Graphics g, ListaNodos p, ListaNodos aux, int Matriz[][]) {
-        if (p.minodo.miPersona.mascarilla == 0 && aux.minodo.miPersona.mascarilla == 0 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2) {
+        if ((p.minodo.miPersona.mascarilla == 0) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
             //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
@@ -337,7 +339,7 @@ public class Grafo {
                     CalculaProbabilidades(g, p, aux, Matriz);
                 }
             }*/
-        } else if (p.minodo.miPersona.mascarilla == 0 && aux.minodo.miPersona.mascarilla == 0 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2) {
+        } else if ((p.minodo.miPersona.mascarilla == 0) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2)) {
             //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
@@ -365,7 +367,7 @@ public class Grafo {
                 }
                 CalculaProbabilidades(g, p, aux, Matriz);
             }*/
-        } else if (p.minodo.miPersona.mascarilla == 0 && aux.minodo.miPersona.mascarilla == 1 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2) {
+        } else if ((p.minodo.miPersona.mascarilla == 0) && (aux.minodo.miPersona.mascarilla == 1) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
             //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
@@ -392,7 +394,7 @@ public class Grafo {
                 }
                 CalculaProbabilidades(g, p, aux, Matriz);
             }*/
-        } else if (p.minodo.miPersona.mascarilla == 0 && aux.minodo.miPersona.mascarilla == 1 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2) {
+        } else if ((p.minodo.miPersona.mascarilla == 0) && (aux.minodo.miPersona.mascarilla == 1) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2)) {
             //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
@@ -419,7 +421,7 @@ public class Grafo {
                 }
                 CalculaProbabilidades(g, p, aux, Matriz);
             }*/
-        } else if (p.minodo.miPersona.mascarilla == 1 && aux.minodo.miPersona.mascarilla == 0 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2) {
+        } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
             //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
@@ -446,7 +448,7 @@ public class Grafo {
                 }
                 CalculaProbabilidades(g, p, aux, Matriz);
             }*/
-        } else if (p.minodo.miPersona.mascarilla == 1 && aux.minodo.miPersona.mascarilla == 0 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2) {
+        } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2)) {
             //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
@@ -473,7 +475,7 @@ public class Grafo {
                 }
                 CalculaProbabilidades(g, p, aux, Matriz);
             }*/
-        } else if (p.minodo.miPersona.mascarilla == 1 && aux.minodo.miPersona.mascarilla == 1 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2) {
+        } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 1) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
             //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
@@ -500,7 +502,7 @@ public class Grafo {
                 }
                 CalculaProbabilidades(g, p, aux, Matriz);
             }*/
-        } else if (p.minodo.miPersona.mascarilla == 1 && aux.minodo.miPersona.mascarilla == 1 && Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2) {
+        } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 1) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2)) {
             //ListaNodos q;
             int prob;
             prob = (int) (Math.random() * 100 + 1);
