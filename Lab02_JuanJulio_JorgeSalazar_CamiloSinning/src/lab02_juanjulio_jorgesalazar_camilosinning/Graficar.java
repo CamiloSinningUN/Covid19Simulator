@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
 
 class nodosDibujados {
@@ -103,6 +105,8 @@ public class Graficar {
     //Grafica un nodo en coordenadas dadas
     public static void GraficarNodo(Graphics g, int diametro, double x, double y, int num) {
 //      System.out.println("GraficarNodo");
+       Graphics2D g2 = (Graphics2D) g;
+       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(Color.blue);
         if (PersonaEnferma(num)) {
             g.setColor(Color.red);
@@ -242,13 +246,13 @@ public class Graficar {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int sx = screenSize.width;
         int sy = screenSize.height;
-        int i = 0;              
+        int i = 0;
         while (sw) {
             Grados = Math.random() * 2 * Math.PI;
             L = (int) (Math.random() * (sx - 60 - 90 * 2 - Radio));
             nodosDibujados p = misNodosDibujados;
             boolean sw1 = true;
-            while (p != null) {               
+            while (p != null) {
                 double xf = xn + Radio * Math.cos(Grados) + L * Math.cos(Grados) + Radio * Math.cos(Grados);
                 double yf = yn + Radio * Math.sin(Grados) + L * Math.sin(Grados) + Radio * Math.sin(Grados);
                 double distancia = Math.sqrt(Math.pow(xf - p.x, 2) + Math.pow(yf - p.y, 2));
@@ -259,7 +263,7 @@ public class Graficar {
             }
             if (sw1 == true) {
                 sw = false;
-            }else if(i > 921600){
+            } else if (i > 921600) {
                 sw = false;
                 System.out.println("Imposible");
             }
