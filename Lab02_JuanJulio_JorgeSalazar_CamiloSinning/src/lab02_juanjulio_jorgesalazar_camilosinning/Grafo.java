@@ -72,26 +72,19 @@ public class Grafo {
         int i = 0, j = 0, aux = 0, acum = 0, acum2 = 0;
 
         while (i < cantidadNodos) {
-
             while (j < cantidadNodos) {
                 acum = Matriz[i][j] + acum;
                 j++;
             }
             if (acum == 0) {
-                while (aux < cantidadNodos) {
-                    acum2 = Matriz[aux][i] + acum2;
-                    aux++;
-                }
-                if (acum2 == 0) {
-                    Aislados = true;
-                    return Aislados;
-                }
+                Aislados = true;
+                return Aislados;
             }
             j = 0;
             i++;
             acum = 0;
             acum2 = 0;
-
+            aux = 0;
         }
         return Aislados;
     }
@@ -221,7 +214,7 @@ public class Grafo {
                             q.linkIncidentes = null;
                         }
                         System.out.println("Asigno Incidentes pero en el else");
-                    }   
+                    }
                 }
                 j++;
             }
