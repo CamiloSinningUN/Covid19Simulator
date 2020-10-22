@@ -5,6 +5,7 @@
  */
 package lab02_juanjulio_jorgesalazar_camilosinning;
 
+import Listas.ListaNodos;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -54,8 +55,8 @@ public class JCS extends javax.swing.JFrame {
         tablero.setSize(sx - tablero.getLocation().x * 2, sy - tablero.getLocation().y - 50);
         //Fin ubicar UI
         loadingLabel.setVisible(false);
-
     }
+    
     boolean sw = true;
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -78,8 +79,8 @@ public class JCS extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        mascarillaLabel = new javax.swing.JLabel();
+        caminoLabel = new javax.swing.JLabel();
         backgroundPanel = new javax.swing.JPanel();
         closeButton = new javax.swing.JButton();
         numberLabel = new javax.swing.JLabel();
@@ -259,9 +260,9 @@ public class JCS extends javax.swing.JFrame {
 
         jLabel5.setText("Camino de contagio:");
 
-        jLabel6.setText("None");
+        mascarillaLabel.setText("None");
 
-        jLabel7.setText("1,2,3,4");
+        caminoLabel.setText("1,2,3,4");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -271,7 +272,7 @@ public class JCS extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel6)
+                .addComponent(mascarillaLabel)
                 .addContainerGap(18, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -280,7 +281,7 @@ public class JCS extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(30, 30, 30)
-                            .addComponent(jLabel7)))
+                            .addComponent(caminoLabel)))
                     .addContainerGap(16, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
@@ -289,14 +290,14 @@ public class JCS extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel6))
+                    .addComponent(mascarillaLabel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(37, 37, 37)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel7)
+                    .addComponent(caminoLabel)
                     .addContainerGap(15, Short.MAX_VALUE)))
         );
 
@@ -696,9 +697,15 @@ sw = true;
         x = x - tablero.getLocation().x;
         nodosDibujados p = Graficar.misNodosDibujados;
         while (p != null) {
-            if ((y < (p.y + Graficar.Radio / 2)) && (y > (p.y - Graficar.Radio / 2)) && (x > (p.x - Graficar.Radio / 2)) && (x < (p.x + Graficar.Radio / 2))) {
-                nodeInformation.setVisible(true);
+            if ((y < (p.y + Graficar.Radio / 2)) && (y > (p.y - Graficar.Radio / 2)) && (x > (p.x - Graficar.Radio / 2)) && (x < (p.x + Graficar.Radio / 2))) {              
+                if(grafo.TieneMascarilla(p.numero)){
+                  mascarillaLabel.setText("Sí");  
+                }else{
+                    mascarillaLabel.setText("No");
+                }
+                 nodeInformation.setVisible(true);
                 nodeInformation.setLocation(x, y);
+                break;
             }
 
             p = p.link;
@@ -718,7 +725,7 @@ sw = true;
         grafo.Iteracion(g, grafo.Adyacencia);
         nodosDibujados p = Graficar.misNodosDibujados;
         while (p != null) {
-            if (Graficar.PersonaEnferma(p.numero)) {
+            if (Graficar.PersonaEnferma(p.numero)) {               
                 g.setColor(Color.white);
                 g.drawOval((int) p.x - Graficar.Radio / 2, (int) p.y - Graficar.Radio / 2, Graficar.Radio, Graficar.Radio);
                 g.setColor(Color.red);
@@ -732,7 +739,6 @@ sw = true;
     }//GEN-LAST:event_nextButtonActionPerformed
 
     private void numberLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numberLabelMouseClicked
-
         // TODO add your handling code here:
     }//GEN-LAST:event_numberLabelMouseClicked
 
@@ -776,6 +782,7 @@ sw = true;
     private javax.swing.JButton allMaskButton;
     private javax.swing.JButton allMaskButton1;
     private javax.swing.JPanel backgroundPanel;
+    private javax.swing.JLabel caminoLabel;
     private javax.swing.JButton closeButton;
     private javax.swing.JButton closeButton1;
     private javax.swing.JTextField errorLabel;
@@ -786,11 +793,10 @@ sw = true;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel loadingLabel;
+    private javax.swing.JLabel mascarillaLabel;
     private javax.swing.JButton maskRandomButton;
     private javax.swing.JButton maskRandomButton1;
     private javax.swing.JButton nextButton;
