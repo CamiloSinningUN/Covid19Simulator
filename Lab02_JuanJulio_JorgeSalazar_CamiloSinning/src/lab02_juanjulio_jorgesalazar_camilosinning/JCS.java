@@ -586,7 +586,7 @@ sw = true;
                     // Pero usamos un truco y hacemos un ciclo infinito
                     try {
                         // En él, hacemos que el hilo duerma
-                        Thread.sleep(2000);
+                        Thread.sleep(3500);
                         // Y después realizamos las operaciones
                         nextButton.doClick();
                         // Así, se da la impresión de que se ejecuta cada cierto tiempo
