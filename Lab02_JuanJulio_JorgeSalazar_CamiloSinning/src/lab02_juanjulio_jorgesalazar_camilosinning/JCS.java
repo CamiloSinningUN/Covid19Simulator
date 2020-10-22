@@ -664,7 +664,7 @@ sw = true;
         Grafo.sw = true;
         contadorIteracion = 0;
         numberLabel.setText(contadorIteracion + "");
-
+        grafo.Infectados = null;
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void closeButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_closeButtonKeyPressed
