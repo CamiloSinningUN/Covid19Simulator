@@ -244,7 +244,7 @@ public class JCS extends javax.swing.JFrame {
 
         loadingLabel.setFont(new java.awt.Font("SimSun-ExtB", 0, 36)); // NOI18N
         loadingLabel.setText("Loading...");
-        jPanel2.add(loadingLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, 180, 100));
+        jPanel2.add(loadingLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, 190, 100));
 
         initialSettings.getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
