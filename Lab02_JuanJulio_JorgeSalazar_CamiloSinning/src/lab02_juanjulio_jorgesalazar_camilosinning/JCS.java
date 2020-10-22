@@ -506,7 +506,7 @@ public class JCS extends javax.swing.JFrame {
     }//GEN-LAST:event_stopButtonActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        boolean sw = false, sw1 = false;
+        boolean sw2 = false, sw1 = false;
         //validaciones
         try {
             errorLabel.setText("");
@@ -515,7 +515,7 @@ public class JCS extends javax.swing.JFrame {
             if (grafo.cantidadNodos < 0) {
                 errorLabel.setText("Invalido");
             } else {
-                sw = true;
+                sw2 = true;
                 errorLabel.setText("");
             }
             if (grafo.modoGrafo != -1) {
@@ -524,7 +524,7 @@ public class JCS extends javax.swing.JFrame {
             } else {
                 errorLabel1.setText("Seleccione un modo");
             }
-            if (sw && sw1) {
+            if (sw2 && sw1) {
                 startButton.setVisible(false);
                 loadingLabel.setVisible(true);
                 setVisible(true);
@@ -590,7 +590,6 @@ sw = true;
                         nextButton.doClick();
                         // Así, se da la impresión de que se ejecuta cada cierto tiempo
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
                 }
             }
