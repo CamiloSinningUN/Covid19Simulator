@@ -8,15 +8,17 @@ package lab02_juanjulio_jorgesalazar_camilosinning;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 
 public class JCS extends javax.swing.JFrame {
 
     Grafo grafo = new Grafo();
-    int vertices = 0;
+//    int vertices = 0;
 
     public JCS() {
         initComponents();
@@ -51,6 +53,7 @@ public class JCS extends javax.swing.JFrame {
         tablero.setLocation(settingsPanel.getLocation().x + settingsPanel.getSize().width + 15, styleLabel.getLocation().y + styleLabel.getSize().height);
         tablero.setSize(sx - tablero.getLocation().x * 2, sy - tablero.getLocation().y - 50);
         //Fin ubicar UI
+        loadingLabel.setVisible(false);
 
     }
 
@@ -70,6 +73,7 @@ public class JCS extends javax.swing.JFrame {
         closeButton1 = new javax.swing.JButton();
         errorLabel = new javax.swing.JTextField();
         errorLabel1 = new javax.swing.JTextField();
+        loadingLabel = new javax.swing.JLabel();
         nodeInformation = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -94,9 +98,11 @@ public class JCS extends javax.swing.JFrame {
                 if(i==1){
                     grafo.InicioGrafo(g);
                     i++;
+                    initialSettings.dispose();
                 }
 
             }
+
         }
         ;
         playStopPanel = new javax.swing.JPanel();
@@ -235,6 +241,10 @@ public class JCS extends javax.swing.JFrame {
             }
         });
         jPanel2.add(errorLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, 190, 30));
+
+        loadingLabel.setFont(new java.awt.Font("SimSun-ExtB", 0, 36)); // NOI18N
+        loadingLabel.setText("Loading...");
+        jPanel2.add(loadingLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, 180, 100));
 
         initialSettings.getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -413,6 +423,7 @@ public class JCS extends javax.swing.JFrame {
 
         tablero.setBackground(new java.awt.Color(255, 255, 255));
         tablero.setAutoscrolls(true);
+        tablero.setOpaque(false);
         tablero.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableroMouseClicked(evt);
@@ -491,6 +502,7 @@ public class JCS extends javax.swing.JFrame {
         try {
             errorLabel.setText("");
             grafo.cantidadNodos = Integer.parseInt(nodosTextField.getText());
+            Graficar.Radio =  20*10/Integer.parseInt(nodosTextField.getText())+20;       
             if (grafo.cantidadNodos < 0) {
                 errorLabel.setText("Invalido");
             } else {
@@ -504,7 +516,8 @@ public class JCS extends javax.swing.JFrame {
                 errorLabel1.setText("Seleccione un modo");
             }
             if (sw && sw1) {
-                initialSettings.dispose();
+               startButton.setVisible(false);
+                loadingLabel.setVisible(true);
                 setVisible(true);
                 switch (grafo.modoGrafo) {
                     case 0:
@@ -647,6 +660,8 @@ public class JCS extends javax.swing.JFrame {
 
         setVisible(false);
         initialSettings.setVisible(true);
+        startButton.setVisible(true);
+        loadingLabel.setVisible(false);
         i = 1;
         Grafo.sw = true;
         
@@ -766,6 +781,7 @@ public class JCS extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel loadingLabel;
     private javax.swing.JButton maskRandomButton;
     private javax.swing.JButton maskRandomButton1;
     private javax.swing.JButton nextButton;
