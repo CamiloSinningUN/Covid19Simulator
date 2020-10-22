@@ -334,4 +334,17 @@ public class Grafo {
         System.out.println(aux.minodo.id);
     }
 
+    public boolean TieneMascarilla(int num){
+        boolean sw2 = false;
+        ListaNodos p = miListaNodos;
+        while(p!=null){
+            if(p.minodo.id == num){
+                if(p.minodo.miPersona.mascarilla == 1){
+                    sw2 = true;
+                }
+            }
+            p = p.link;
+        }
+        return sw2;
+    }
 }
