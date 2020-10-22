@@ -244,7 +244,7 @@ public class JCS extends javax.swing.JFrame {
 
         loadingLabel.setFont(new java.awt.Font("SimSun-ExtB", 0, 36)); // NOI18N
         loadingLabel.setText("Loading...");
-        jPanel2.add(loadingLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, 180, 100));
+        jPanel2.add(loadingLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, 190, 100));
 
         initialSettings.getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -321,6 +321,7 @@ public class JCS extends javax.swing.JFrame {
 
         closeButton.setBackground(new java.awt.Color(255, 255, 255));
         closeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/close2.png"))); // NOI18N
+        closeButton.setToolTipText("Close");
         closeButton.setBorderPainted(false);
         closeButton.setContentAreaFilled(false);
         closeButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
