@@ -77,6 +77,14 @@ public class Grafo {
                 j++;
             }
             if (acum == 0) {
+                while (aux < cantidadNodos) {
+                    acum2 = Matriz[aux][i] + acum2;
+                    aux++;
+                }
+                if (acum2 == 0) {
+                    Aislados = true;
+                    return Aislados;
+                }
                 Aislados = true;
                 return Aislados;
             }
@@ -141,18 +149,19 @@ public class Grafo {
     //Función que da al azar el primer infectado
     int PrimerInfectado(int Matriz[][]) {
         int infectado = 0, j = 0, acum = 0;
-        boolean sw = false;
-
-        while (sw == false) {
+        boolean sw1 = false;
+        
+        
+        while (!sw1) {
+            infectado = (int) (Math.random() * cantidadNodos) + 1;
             while (j < cantidadNodos) {
-                infectado = (int) (Math.random() * cantidadNodos) + 1;
                 acum = Matriz[infectado - 1][j] + acum;
                 j++;
             }
             if (acum == 0) {
                 j = 0;
             } else {
-                sw = true;
+                sw1 = true;
             }
         }
         System.out.println(infectado);
@@ -304,31 +313,31 @@ public class Grafo {
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 60) {
-                ActualizaInfectados(g, aux.minodo.id, Matriz);              
+                ActualizaInfectados(g, aux.minodo.id, Matriz);
             }
-        } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {          
+        } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 30) {
-                ActualizaInfectados(g, aux.minodo.id, Matriz);            
+                ActualizaInfectados(g, aux.minodo.id, Matriz);
             }
         } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2)) {
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 40) {
-                ActualizaInfectados(g, aux.minodo.id, Matriz);           
+                ActualizaInfectados(g, aux.minodo.id, Matriz);
             }
         } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 1) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 20) {
-                ActualizaInfectados(g, aux.minodo.id, Matriz);             
+                ActualizaInfectados(g, aux.minodo.id, Matriz);
             }
         } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 1) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2)) {
             int prob;
             prob = (int) (Math.random() * 100 + 1);
             if (prob <= 30) {
-                ActualizaInfectados(g, aux.minodo.id, Matriz);             
+                ActualizaInfectados(g, aux.minodo.id, Matriz);
             }
         }
         System.out.println(aux.minodo.id);
