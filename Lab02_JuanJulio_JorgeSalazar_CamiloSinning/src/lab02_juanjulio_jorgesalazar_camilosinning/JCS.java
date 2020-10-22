@@ -8,18 +8,18 @@ package lab02_juanjulio_jorgesalazar_camilosinning;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.Point;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 
 public class JCS extends javax.swing.JFrame {
 
     Grafo grafo = new Grafo();
+    int contadorIteracion = 0;
 //    int vertices = 0;
-
+    Runnable runnable;
+     Thread hilo;
     public JCS() {
         initComponents();
 
@@ -56,7 +56,7 @@ public class JCS extends javax.swing.JFrame {
         loadingLabel.setVisible(false);
 
     }
-
+    boolean sw = true;
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -340,6 +340,11 @@ public class JCS extends javax.swing.JFrame {
         numberLabel.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 48)); // NOI18N
         numberLabel.setText("0");
         numberLabel.setToolTipText("Contador");
+        numberLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                numberLabelMouseClicked(evt);
+            }
+        });
         backgroundPanel.add(numberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 40, 20, -1));
 
         styleLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/contador.png"))); // NOI18N
@@ -496,7 +501,8 @@ public class JCS extends javax.swing.JFrame {
     }//GEN-LAST:event_closeButtonActionPerformed
 
     private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
-
+        
+        sw = false;
     }//GEN-LAST:event_stopButtonActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
@@ -505,7 +511,7 @@ public class JCS extends javax.swing.JFrame {
         try {
             errorLabel.setText("");
             grafo.cantidadNodos = Integer.parseInt(nodosTextField.getText());
-            Graficar.Radio =  20*10/Integer.parseInt(nodosTextField.getText())+20;       
+            Graficar.Radio = 20 * 10 / Integer.parseInt(nodosTextField.getText()) + 20;
             if (grafo.cantidadNodos < 0) {
                 errorLabel.setText("Invalido");
             } else {
@@ -519,7 +525,7 @@ public class JCS extends javax.swing.JFrame {
                 errorLabel1.setText("Seleccione un modo");
             }
             if (sw && sw1) {
-               startButton.setVisible(false);
+                startButton.setVisible(false);
                 loadingLabel.setVisible(true);
                 setVisible(true);
                 switch (grafo.modoGrafo) {
@@ -570,37 +576,27 @@ public class JCS extends javax.swing.JFrame {
     }//GEN-LAST:event_maskRandomButtonActionPerformed
 
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
-
-//        System.out.println("entre");
-//        Runnable runnable;
-//        runnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                // Esto se ejecuta en segundo plano una única vez
-//                while (true) {
-//                    // Pero usamos un truco y hacemos un ciclo infinito
-//                    try {
-//                        // En él, hacemos que el hilo duerma
-//                        Thread.sleep(1000);
-//                        // Y después realizamos las operaciones
-//                        int[][] nose = grafo.MatrizAdyacencia();
-//                        System.out.println("Una matriz");
-//                        for (int j = 0; j < nose.length; j++) {
-//                            for (int k = 0; k < nose.length; k++) {
-//                                System.out.print(nose[j][k]);
-//                            }
-//                            System.out.println("");
-//                        }
-//                        
-//                        // Así, se da la impresión de que se ejecuta cada cierto tiempo
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        };
-//        Thread hilo = new Thread(runnable);
-//        hilo.start();
+sw = true;
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                // Esto se ejecuta en segundo plano una única vez
+                while (sw) {
+                    // Pero usamos un truco y hacemos un ciclo infinito
+                    try {
+                        // En él, hacemos que el hilo duerma
+                        Thread.sleep(2000);
+                        // Y después realizamos las operaciones
+                        nextButton.doClick();
+                        // Así, se da la impresión de que se ejecuta cada cierto tiempo
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        hilo = new Thread(runnable);
+        hilo.start();
 
     }//GEN-LAST:event_playButtonActionPerformed
 
@@ -618,9 +614,9 @@ public class JCS extends javax.swing.JFrame {
     }//GEN-LAST:event_allMaskButtonActionPerformed
 
     private void closeButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButton1ActionPerformed
-        
+
         System.exit(0);
-        
+
     }//GEN-LAST:event_closeButton1ActionPerformed
 
     private void errorLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_errorLabelMouseClicked
@@ -667,15 +663,17 @@ public class JCS extends javax.swing.JFrame {
         loadingLabel.setVisible(false);
         i = 1;
         Grafo.sw = true;
-        
+        contadorIteracion = 0;
+        numberLabel.setText(contadorIteracion + "");
+
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void closeButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_closeButtonKeyPressed
-        
+
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             System.exit(0);
         }
-        
+
     }//GEN-LAST:event_closeButtonKeyPressed
 
     private void tableroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableroMouseEntered
@@ -691,7 +689,7 @@ public class JCS extends javax.swing.JFrame {
     }//GEN-LAST:event_tableroMouseClicked
 
     private void tableroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableroMousePressed
-        
+
         Point point = MouseInfo.getPointerInfo().getLocation();
         int x = point.x;
         int y = point.y;
@@ -710,27 +708,34 @@ public class JCS extends javax.swing.JFrame {
     }//GEN-LAST:event_tableroMousePressed
 
     private void tableroMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableroMouseReleased
-        
+
         nodeInformation.setVisible(false);
 
     }//GEN-LAST:event_tableroMouseReleased
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
-        
+
         Graphics g = tablero.getGraphics();
         grafo.Iteracion(g, grafo.Adyacencia);
         nodosDibujados p = Graficar.misNodosDibujados;
         while (p != null) {
             if (Graficar.PersonaEnferma(p.numero)) {
                 g.setColor(Color.white);
-                g.drawOval((int)p.x-Graficar.Radio/2,(int) p.y-Graficar.Radio/2, Graficar.Radio, Graficar.Radio);
+                g.drawOval((int) p.x - Graficar.Radio / 2, (int) p.y - Graficar.Radio / 2, Graficar.Radio, Graficar.Radio);
                 g.setColor(Color.red);
-               g.drawOval((int)p.x-Graficar.Radio/2,(int) p.y-Graficar.Radio/2, Graficar.Radio, Graficar.Radio);
+                g.drawOval((int) p.x - Graficar.Radio / 2, (int) p.y - Graficar.Radio / 2, Graficar.Radio, Graficar.Radio);
             }
             p = p.link;
         }
+        contadorIteracion++;
+        numberLabel.setText(contadorIteracion + "");
 
     }//GEN-LAST:event_nextButtonActionPerformed
+
+    private void numberLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numberLabelMouseClicked
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numberLabelMouseClicked
 
     /**
      * @param args the command line arguments
