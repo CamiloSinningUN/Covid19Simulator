@@ -321,6 +321,7 @@ public class JCS extends javax.swing.JFrame {
 
         closeButton.setBackground(new java.awt.Color(255, 255, 255));
         closeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/close2.png"))); // NOI18N
+        closeButton.setToolTipText("Close");
         closeButton.setBorderPainted(false);
         closeButton.setContentAreaFilled(false);
         closeButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
