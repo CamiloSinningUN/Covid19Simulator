@@ -132,6 +132,14 @@ public class Grafo {
             }
             i++;
         }
+        System.out.println("Grafo como lista");
+        ListaNodos aux;
+        aux = miListaNodos;
+        while (aux != null) {
+            System.out.println(aux.minodo.id);
+            aux = aux.link;
+        }
+        System.out.println("Listo el grafo como lista");
         ListaDeAdyacencia(Matriz);
         infectado = PrimerInfectado(Matriz);
         ActualizaInfectados(g, infectado, Matriz);
@@ -176,38 +184,67 @@ public class Grafo {
 
     //Crea una multilista con los grafos y sus conexiones a partir de la lista ya creada
     public void ListaDeAdyacencia(int Matriz[][]) {
-        ListaNodos p;
+        ListaNodos p, aux1;
         int i = 0, j = 0;
 
         p = miListaNodos;
+        //p.linkIncidentes = null;
         while (i < cantidadNodos) {
+            System.out.println("Entro a while a 1");
             while (j < cantidadNodos) {
+                System.out.println("Entro al while 2");
                 if (Matriz[i][j] > 0) {
+                    System.out.println("Entro al if");
                     Persona tempp = new Persona(0, modoGrafo);
-                    Nodo tempn = new Nodo(j, tempp);
+                    System.out.println("Creé a la persona");
+                    Nodo tempn = new Nodo(j + 1, tempp);
+                    System.out.println("Creé al nodo");
                     ListaNodos q = new ListaNodos(tempn);
-
+                    System.out.println("Creé al nodo pa la lista");
                     while ((p != null) && (p.minodo.id != (i + 1))) {
                         p = p.link;
+                        System.out.println("Busco el nodo");
                     }
                     if ((p != null) && (p.linkIncidentes == null)) {
                         p.linkIncidentes = q;
                         q.linkIncidentes = null;
+                        System.out.println("Asigno Incidentes");
                     } else {
-                        while ((p != null) && (p.linkIncidentes != null)) {
-                            p = p.linkIncidentes;
-                        }
-                        if (p != null) {
-                            p.linkIncidentes = q;
+                        System.out.println("Entré al else");
+                        if ((p != null) && (p.linkIncidentes != null)) {
+                            aux1 = p.linkIncidentes;
+                            while (aux1.linkIncidentes != null) {
+                                System.out.println("Me quedo por estúpido");
+                                aux1 = aux1.linkIncidentes;
+                            }
+                            aux1.linkIncidentes = q;
                             q.linkIncidentes = null;
                         }
-                    }
+                        System.out.println("Asigno Incidentes pero en el else");
+                    }   
                 }
                 j++;
             }
             j = 0;
             i++;
         }
+        String infectados;
+        ListaNodos q, aux;
+        q = miListaNodos;
+        System.out.println("Escribiré la multilista");
+        while (q != null) {
+            infectados = q.minodo.id + "";
+            if (q.linkIncidentes != null) {
+                aux = q.linkIncidentes;
+                while (aux != null) {
+                    infectados = infectados + (aux.minodo.id + "");
+                    aux = aux.linkIncidentes;
+                }
+                System.out.println(infectados);
+            }
+            q = q.link;
+        }
+        System.out.println("Multilista escrita (el primero es el nodo principal y del segundo en adelante son los que puede infectar)");
     }
 
     //Se encarga de generar las iteraciones en simulador y actualizar 
