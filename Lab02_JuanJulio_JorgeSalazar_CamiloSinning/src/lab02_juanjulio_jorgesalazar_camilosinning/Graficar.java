@@ -245,10 +245,10 @@ public class Graficar {
         int i = 0;              
         while (sw) {
             Grados = Math.random() * 2 * Math.PI;
+            L = (int) (Math.random() * (sx - 60 - 90 * 2 - Radio));
             nodosDibujados p = misNodosDibujados;
             boolean sw1 = true;
-            while (p != null) {
-                L = (int) (Math.random() * (sx - 60 - 90 * 2 - Radio));
+            while (p != null) {               
                 double xf = xn + Radio * Math.cos(Grados) + L * Math.cos(Grados) + Radio * Math.cos(Grados);
                 double yf = yn + Radio * Math.sin(Grados) + L * Math.sin(Grados) + Radio * Math.sin(Grados);
                 double distancia = Math.sqrt(Math.pow(xf - p.x, 2) + Math.pow(yf - p.y, 2));
@@ -259,8 +259,9 @@ public class Graficar {
             }
             if (sw1 == true) {
                 sw = false;
-            }else if(i > 10000){
+            }else if(i > 921600){
                 sw = false;
+                System.out.println("Imposible");
             }
             i++;
         }

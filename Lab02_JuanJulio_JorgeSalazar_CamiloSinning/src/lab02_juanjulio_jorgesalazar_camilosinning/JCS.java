@@ -16,7 +16,7 @@ import java.awt.event.KeyEvent;
 public class JCS extends javax.swing.JFrame {
 
     Grafo grafo = new Grafo();
-    int vertices = 0;
+//    int vertices = 0;
 
     public JCS() {
         initComponents();
@@ -413,6 +413,7 @@ public class JCS extends javax.swing.JFrame {
 
         tablero.setBackground(new java.awt.Color(255, 255, 255));
         tablero.setAutoscrolls(true);
+        tablero.setOpaque(false);
         tablero.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableroMouseClicked(evt);
@@ -491,6 +492,7 @@ public class JCS extends javax.swing.JFrame {
         try {
             errorLabel.setText("");
             grafo.cantidadNodos = Integer.parseInt(nodosTextField.getText());
+            Graficar.Radio =  20*10/Integer.parseInt(nodosTextField.getText())+20;       
             if (grafo.cantidadNodos < 0) {
                 errorLabel.setText("Invalido");
             } else {
