@@ -400,6 +400,7 @@ public class JCS extends javax.swing.JFrame {
         settingsPanel.add(allMaskButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 90, 70));
 
         maskRandomButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/aleatorio.png"))); // NOI18N
+        maskRandomButton1.setToolTipText("Random");
         maskRandomButton1.setBorderPainted(false);
         maskRandomButton1.setContentAreaFilled(false);
         maskRandomButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -410,6 +411,7 @@ public class JCS extends javax.swing.JFrame {
         settingsPanel.add(maskRandomButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 90, 70));
 
         withoutMaskButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Whithout MAsk.png"))); // NOI18N
+        withoutMaskButton1.setToolTipText("Without mask");
         withoutMaskButton1.setBorderPainted(false);
         withoutMaskButton1.setContentAreaFilled(false);
         withoutMaskButton1.addActionListener(new java.awt.event.ActionListener() {
