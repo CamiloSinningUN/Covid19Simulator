@@ -217,7 +217,7 @@ public class JCS extends javax.swing.JFrame {
                 errorLabelKeyReleased(evt);
             }
         });
-        jPanel2.add(errorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 190, 30));
+        jPanel2.add(errorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 310, 30));
 
         errorLabel1.setEditable(false);
         errorLabel1.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
@@ -262,26 +262,27 @@ public class JCS extends javax.swing.JFrame {
 
         mascarillaLabel.setText("None");
 
-        caminoLabel.setText("1,2,3,4");
+        caminoLabel.setText("Coming soon...");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(mascarillaLabel)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(mascarillaLabel))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(caminoLabel)))
+                .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(30, 30, 30)
-                            .addComponent(caminoLabel)))
+                    .addComponent(jLabel5)
                     .addContainerGap(16, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
@@ -291,14 +292,14 @@ public class JCS extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(mascarillaLabel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(caminoLabel)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(37, 37, 37)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(caminoLabel)
-                    .addContainerGap(15, Short.MAX_VALUE)))
+                    .addContainerGap(35, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout nodeInformationLayout = new javax.swing.GroupLayout(nodeInformation.getContentPane());
@@ -514,7 +515,7 @@ public class JCS extends javax.swing.JFrame {
             grafo.cantidadNodos = Integer.parseInt(nodosTextField.getText());
             Graficar.Radio = 20 * 10 / Integer.parseInt(nodosTextField.getText()) + 20;
             if (grafo.cantidadNodos < 0) {
-                errorLabel.setText("Invalido");
+                errorLabel.setText("Inserte un numero valido");
             } else {
                 sw2 = true;
                 errorLabel.setText("");
@@ -553,7 +554,7 @@ public class JCS extends javax.swing.JFrame {
                 allMaskButton.setEnabled(true);
             }
         } catch (NumberFormatException e) {
-            errorLabel.setText("Invalido");
+            errorLabel.setText("Inserte un numero valido");
         }
 
     }//GEN-LAST:event_startButtonActionPerformed
