@@ -513,7 +513,7 @@ public class JCS extends javax.swing.JFrame {
             errorLabel.setText("");
             grafo.cantidadNodos = Integer.parseInt(nodosTextField.getText());
             Graficar.Radio = 20 * 10 / Integer.parseInt(nodosTextField.getText()) + 20;
-            if (grafo.cantidadNodos < 0) {
+            if (grafo.cantidadNodos <= 1) {
                 errorLabel.setText("Inserte un numero valido");
             } else {
                 sw2 = true;
