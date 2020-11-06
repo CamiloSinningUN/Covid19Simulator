@@ -2,6 +2,7 @@ package lab02_juanjulio_jorgesalazar_camilosinning;
 
 import Listas.ListaNodos;
 import java.awt.Graphics;
+import javax.swing.JLabel;
 
 public class Grafo {
 
@@ -484,93 +485,144 @@ public class Grafo {
         return sw2;
     }
 
-    public void CaminoMasPeligroso(ListaNodos n, int Matriz[][]) {
-        ListaNodos q, aux, aux2;
-        boolean infecta = false;
-        int Num = 0, mayor = 0;
+    public void CaminoMasPeligroso(int n) {
+        nodosDibujados p = Graficar.misNodosDibujados;
+        ni = n;
+        nodom = 0;
+        caminomenor = "";
+        m = Integer.MAX_VALUE;
+        while (p != null) {
+            if (Graficar.PersonaEnferma(p.numero)) {
+                dijkstra(Adyacencia, p.numero - 1);
+            }
+            p = p.link;
+        }
 
-        q = miListaNodos;
-        while (q != null) {
-            if (q.linkIncidentes != null) {
-                aux = q.linkIncidentes;
+    }
 
-                while (infecta == false && aux != null) {
-                    if (aux.minodo.miPersona.enfermo == 1) {
-                        infecta = true;
-                    } else {
-                        aux = aux.linkIncidentes;
+    static int ni;
+    static final int noAdyacentes = -1;
+    static int nodom;
+    static String caminomenor;
+    static int m = Integer.MAX_VALUE;
+
+    void dijkstra(int[][] adjacencia, int vi) {
+        int nVertices = adjacencia[0].length;
+
+        int[] distanciasCortas = new int[nVertices];
+
+        boolean[] arreglo = new boolean[nVertices];
+
+        for (int Index = 0; Index < nVertices; Index++) {
+            distanciasCortas[Index] = Integer.MAX_VALUE;
+            arreglo[Index] = false;
+        }
+
+        distanciasCortas[vi] = 0;
+
+        int[] parents = new int[nVertices];
+
+        parents[vi] = noAdyacentes;
+
+        for (int i = 1; i < nVertices; i++) {
+
+            int nearest = -1;
+            int shortestDistance = Integer.MAX_VALUE;
+            for (int vertexIndex = 0; vertexIndex < nVertices; vertexIndex++) {
+                if (!arreglo[vertexIndex] && distanciasCortas[vertexIndex] < shortestDistance) {
+                    nearest = vertexIndex;
+                    shortestDistance = distanciasCortas[vertexIndex];
+                }
+            }
+
+            arreglo[nearest] = true;
+
+            for (int vertexIndex = 0; vertexIndex < nVertices; vertexIndex++) {
+                int edgeDistance = adjacencia[nearest][vertexIndex];
+
+                if (edgeDistance > 0 && ((shortestDistance + edgeDistance) < distanciasCortas[vertexIndex])) {
+                    parents[vertexIndex] = nearest;
+                    distanciasCortas[vertexIndex] = shortestDistance
+                            + edgeDistance;
+                }
+            }
+        }
+        if (sw1) {
+            print(vi, distanciasCortas, parents);
+        }else{
+            print2(vi, distanciasCortas, parents);
+        }
+
+    }
+
+    static boolean sw1 = true;
+    static int proxNodo;
+    void print2(int startVertex, int[] distances, int[] parents) {
+        int nVertices = distances.length;
+        System.out.print("Vertex\t Distance\tPath2");
+        int menor = Integer.MAX_VALUE;
+        for (int vertexIndex = 0; vertexIndex < nVertices; vertexIndex++) {
+            if ((vertexIndex != startVertex)) {
+
+                System.out.print("\n" + startVertex + " -> ");
+                System.out.print(vertexIndex + " \t\t ");
+                System.out.print(distances[vertexIndex] + "\t\t");
+
+                if(distances[vertexIndex]<menor){
+                    System.out.println("entre");
+                    menor = distances[vertexIndex]; 
+                    proxNodo=vertexIndex+1;
+                    System.out.println("aja"+proxNodo);
+                }
+                   
+
+
+            }
+        }
+       
+
+    }
+    void print(int startVertex, int[] distances, int[] parents) {
+        int nVertices = distances.length;
+        System.out.print("Vertex\t Distance\tPath");
+
+        for (int vertexIndex = 0; vertexIndex < nVertices; vertexIndex++) {
+            if ((vertexIndex != startVertex)) {
+
+                System.out.print("\n" + startVertex + " -> ");
+                System.out.print(vertexIndex + " \t\t ");
+                System.out.print(distances[vertexIndex] + "\t\t");
+
+                if (vertexIndex == ni) {
+                    if (distances[vertexIndex] < m) {
+                        m = distances[vertexIndex];
+                        nodom = vertexIndex + 1;
+                        caminomenor = "";
+                        printPath(vertexIndex, parents);
+
                     }
                 }
-                if ((aux != null) && (infecta == true)) {
-                    if (MePuedenInfectar == null) {
-                        MePuedenInfectar = aux;
 
-                    } else {
-                        aux2 = MePuedenInfectar;
-                        while (aux2.linkMePuedenInfectar != null) {
-                            aux2 = aux2.linkMePuedenInfectar;
-                        }
-                        aux2.linkMePuedenInfectar = aux;
-                    }
-
-                    aux.linkMePuedenInfectar = null;
-                }
             }
-            q = q.linkIncidentes;
         }
-        NumeroDeNodos(Num);
-        int ProbabilidadesInfeccion[] = new int[Num];
-        MasProbableQueInfecte(n, Matriz, ProbabilidadesInfeccion);
-        MayorProbabilidad(ProbabilidadesInfeccion, Num, mayor);
+
     }
 
-    public void NumeroDeNodos(int Num) {
-        Num = 0;
-        ListaNodos q;
-        q = MePuedenInfectar;
-        while (q != null) {
-            Num = Num + 1;
+    void printPath(int currentVertex, int[] parents) {
+        if (currentVertex == noAdyacentes) {
+            return;
         }
+        printPath(parents[currentVertex], parents);
+        caminomenor = caminomenor + (currentVertex + 1) + " ";
     }
 
-    public void MasProbableQueInfecte(ListaNodos n, int Matriz[][], int vector[]) {
-        ListaNodos p, aux;
-        int i = 0;
-        p = n;
-        aux = MePuedenInfectar;
-        while (aux != null) {
-            if ((p.minodo.miPersona.mascarilla == 0) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
-                vector[i] = 80;
-            } else if ((p.minodo.miPersona.mascarilla == 0) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2)) {
-                vector[i] = 90;
-            } else if ((p.minodo.miPersona.mascarilla == 0) && (aux.minodo.miPersona.mascarilla == 1) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
-                vector[i] = 40;
-            } else if ((p.minodo.miPersona.mascarilla == 0) && (aux.minodo.miPersona.mascarilla == 1) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2)) {
-                vector[i] = 60;
-            } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
-                vector[i] = 30;
-            } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2)) {
-                vector[i] = 40;
-            } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 1) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
-                vector[i] = 20;
-            } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 1) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2)) {
-                vector[i] = 30;
-            }
-            i++;
-        }
+    void proxInfectar(int n) {
+        ni = n;
+        nodom = 0;
+        caminomenor = "";
+        m = Integer.MAX_VALUE;
+        dijkstra(Adyacencia,n-1);
+
     }
 
-    public void MayorProbabilidad(int vector[], int Num, int mayor) {
-        int i = 0;
-        mayor = 0;
-        while (i < Num) {
-            if (vector[i] > mayor) {
-                mayor = i + 1;
-            }
-            i++;
-        }
-    }
-    
-    
-    
 }

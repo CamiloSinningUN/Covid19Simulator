@@ -19,7 +19,8 @@ public class JCS extends javax.swing.JFrame {
     int contadorIteracion = 0;
 //    int vertices = 0;
     Runnable runnable;
-     Thread hilo;
+    Thread hilo;
+
     public JCS() {
         initComponents();
 
@@ -55,8 +56,9 @@ public class JCS extends javax.swing.JFrame {
         //Fin ubicar UI
         loadingLabel.setVisible(false);
     }
-    
+
     boolean sw = true;
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -502,7 +504,7 @@ public class JCS extends javax.swing.JFrame {
     }//GEN-LAST:event_closeButtonActionPerformed
 
     private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
-        
+
         sw = false;
     }//GEN-LAST:event_stopButtonActionPerformed
 
@@ -577,7 +579,7 @@ public class JCS extends javax.swing.JFrame {
     }//GEN-LAST:event_maskRandomButtonActionPerformed
 
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
-sw = true;
+        sw = true;
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -697,19 +699,36 @@ sw = true;
         x = x - tablero.getLocation().x;
         nodosDibujados p = Graficar.misNodosDibujados;
         while (p != null) {
-            if ((y < (p.y + Graficar.Radio / 2)) && (y > (p.y - Graficar.Radio / 2)) && (x > (p.x - Graficar.Radio / 2)) && (x < (p.x + Graficar.Radio / 2))) {              
-                if(grafo.TieneMascarilla(p.numero)){
-                  mascarillaLabel.setText("Sí");  
-                }else{
+            if ((y < (p.y + Graficar.Radio / 2)) && (y > (p.y - Graficar.Radio / 2)) && (x > (p.x - Graficar.Radio / 2)) && (x < (p.x + Graficar.Radio / 2))) {
+                if (grafo.TieneMascarilla(p.numero)) {
+                    mascarillaLabel.setText("Sí");
+                    caminoLabel.setText("");
+
+                } else {
                     mascarillaLabel.setText("No");
+                    caminoLabel.setText("");
+
                 }
-                 nodeInformation.setVisible(true);
+                if (!Graficar.PersonaEnferma(p.numero)) {
+                    Grafo.sw1=true;
+                    jLabel5.setText("Camino de contagio:");
+                    grafo.CaminoMasPeligroso(p.numero - 1);
+                    caminoLabel.setText(Grafo.caminomenor);
+                }else{
+                    Grafo.sw1=false;
+                    grafo.proxInfectar(p.numero);
+                    jLabel5.setText("Proximo a infectar:");
+                    caminoLabel.setText(Grafo.proxNodo+"");
+                }
+
+                nodeInformation.setVisible(true);
                 nodeInformation.setLocation(x, y);
                 break;
             }
 
             p = p.link;
         }
+        System.out.println(Grafo.nodom);
 
     }//GEN-LAST:event_tableroMousePressed
 
@@ -725,7 +744,7 @@ sw = true;
         grafo.Iteracion(g, grafo.Adyacencia);
         nodosDibujados p = Graficar.misNodosDibujados;
         while (p != null) {
-            if (Graficar.PersonaEnferma(p.numero)) {               
+            if (Graficar.PersonaEnferma(p.numero)) {
                 g.setColor(Color.white);
                 g.drawOval((int) p.x - Graficar.Radio / 2, (int) p.y - Graficar.Radio / 2, Graficar.Radio, Graficar.Radio);
                 g.setColor(Color.red);
