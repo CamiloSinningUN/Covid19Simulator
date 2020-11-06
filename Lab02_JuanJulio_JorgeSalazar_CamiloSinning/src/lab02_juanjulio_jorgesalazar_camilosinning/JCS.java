@@ -5,7 +5,6 @@
  */
 package lab02_juanjulio_jorgesalazar_camilosinning;
 
-import Listas.ListaNodos;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;

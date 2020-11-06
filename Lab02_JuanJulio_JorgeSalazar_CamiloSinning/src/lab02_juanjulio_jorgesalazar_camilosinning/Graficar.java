@@ -105,8 +105,8 @@ public class Graficar {
     //Grafica un nodo en coordenadas dadas
     public static void GraficarNodo(Graphics g, int diametro, double x, double y, int num) {
 //      System.out.println("GraficarNodo");
-       Graphics2D g2 = (Graphics2D) g;
-       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(Color.blue);
         if (PersonaEnferma(num)) {
             g.setColor(Color.red);
@@ -359,6 +359,19 @@ public class Graficar {
             if (MatrizCeros()) {
                 sw = false;
             }
+        }
+        //Remarcar nodos
+        Repintar(g);
+    }
+
+    public static void Repintar(Graphics g) {
+//        System.out.println("Repintar");
+        nodosDibujados p = misNodosDibujados;
+        while (p != null) {
+            g.setColor(Color.white);
+            g.fillOval((int) p.x - Radio / 2, (int) p.y - Radio / 2, Radio, Radio);
+            GraficarNodo(g, Radio, p.x, p.y, p.numero);
+            p = p.link;
         }
     }
 
