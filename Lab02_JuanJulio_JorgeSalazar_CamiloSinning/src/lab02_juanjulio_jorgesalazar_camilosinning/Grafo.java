@@ -9,6 +9,7 @@ public class Grafo {
     int modoGrafo;
     static ListaNodos miListaNodos; //respesentando un grafo como lista
     ListaNodos Infectados;
+    ListaNodos MePuedenInfectar;
     static boolean sw = true;
     int[][] Adyacencia = null;
 
@@ -469,17 +470,52 @@ public class Grafo {
         System.out.println(aux.minodo.id);
     }
 
-    public boolean TieneMascarilla(int num){
+    public boolean TieneMascarilla(int num) {
         boolean sw2 = false;
         ListaNodos p = miListaNodos;
-        while(p!=null){
-            if(p.minodo.id == num){
-                if(p.minodo.miPersona.mascarilla == 1){
+        while (p != null) {
+            if (p.minodo.id == num) {
+                if (p.minodo.miPersona.mascarilla == 1) {
                     sw2 = true;
                 }
             }
             p = p.link;
         }
         return sw2;
+    }
+
+    public void CaminoMasPeligroso(ListaNodos n) {
+        ListaNodos q, aux, aux2;
+        boolean infecta = false;
+
+        q = miListaNodos;
+        while (q != null) {
+            if (q.linkIncidentes != null) {
+                aux = q.linkIncidentes;
+
+                while (infecta == false && aux != null) {
+                    if (aux.minodo.miPersona.enfermo == 1) {
+                        infecta = true;
+                    } else {
+                        aux = aux.linkIncidentes;
+                    }
+                }
+                if (infecta == true) {
+                    if (MePuedenInfectar == null) {
+                        MePuedenInfectar = aux;
+                        aux.linkMePuedenInfectar = null;
+                    } else {
+                        aux2 = MePuedenInfectar;
+                        while (aux2.linkMePuedenInfectar != null) {
+                            aux2 = aux2.linkMePuedenInfectar;
+                        }
+                        aux2.linkMePuedenInfectar = aux;
+                        aux.linkMePuedenInfectar = null;
+                    }
+                }
+            }
+                q = q.linkIncidentes;            
+        }
+        
     }
 }
