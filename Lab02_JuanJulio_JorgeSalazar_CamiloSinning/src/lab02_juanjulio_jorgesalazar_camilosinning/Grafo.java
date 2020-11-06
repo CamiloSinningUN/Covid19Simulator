@@ -484,9 +484,10 @@ public class Grafo {
         return sw2;
     }
 
-    public void CaminoMasPeligroso(ListaNodos n) {
+    public void CaminoMasPeligroso(ListaNodos n, int Matriz[][]) {
         ListaNodos q, aux, aux2;
         boolean infecta = false;
+        int Num = 0, mayor = 0;
 
         q = miListaNodos;
         while (q != null) {
@@ -517,6 +518,59 @@ public class Grafo {
             }
             q = q.linkIncidentes;
         }
-
+        NumeroDeNodos(Num);
+        int ProbabilidadesInfeccion[] = new int[Num];
+        MasProbableQueInfecte(n, Matriz, ProbabilidadesInfeccion);
+        MayorProbabilidad(ProbabilidadesInfeccion, Num, mayor);
     }
+
+    public void NumeroDeNodos(int Num) {
+        Num = 0;
+        ListaNodos q;
+        q = MePuedenInfectar;
+        while (q != null) {
+            Num = Num + 1;
+        }
+    }
+
+    public void MasProbableQueInfecte(ListaNodos n, int Matriz[][], int vector[]) {
+        ListaNodos p, aux;
+        int i = 0;
+        p = n;
+        aux = MePuedenInfectar;
+        while (aux != null) {
+            if ((p.minodo.miPersona.mascarilla == 0) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
+                vector[i] = 80;
+            } else if ((p.minodo.miPersona.mascarilla == 0) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2)) {
+                vector[i] = 90;
+            } else if ((p.minodo.miPersona.mascarilla == 0) && (aux.minodo.miPersona.mascarilla == 1) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
+                vector[i] = 40;
+            } else if ((p.minodo.miPersona.mascarilla == 0) && (aux.minodo.miPersona.mascarilla == 1) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2)) {
+                vector[i] = 60;
+            } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
+                vector[i] = 30;
+            } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2)) {
+                vector[i] = 40;
+            } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 1) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
+                vector[i] = 20;
+            } else if ((p.minodo.miPersona.mascarilla == 1) && (aux.minodo.miPersona.mascarilla == 1) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] <= 2)) {
+                vector[i] = 30;
+            }
+            i++;
+        }
+    }
+
+    public void MayorProbabilidad(int vector[], int Num, int mayor) {
+        int i = 0;
+        mayor = 0;
+        while (i < Num) {
+            if (vector[i] > mayor) {
+                mayor = i + 1;
+            }
+            i++;
+        }
+    }
+    
+    
+    
 }
