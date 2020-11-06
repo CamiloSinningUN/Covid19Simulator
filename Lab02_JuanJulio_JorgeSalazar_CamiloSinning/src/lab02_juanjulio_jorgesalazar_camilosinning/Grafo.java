@@ -47,24 +47,24 @@ public class Grafo {
     //genera la matriz de adyacencia de manera aleatoria
     public int[][] MatrizAdyacencia() {
         int i = 0, j = 0;
-        int[][] Adyacencia = new int[cantidadNodos][cantidadNodos];
+        int[][] Adyacencia1 = new int[cantidadNodos][cantidadNodos];
         while (i < cantidadNodos) {
             while (j < cantidadNodos) {
                 if (i == j) {
-                    Adyacencia[i][j] = 0;
+                    Adyacencia1[i][j] = 0;
                 } else {
-                    Adyacencia[i][j] = (int) (Math.random() * 2);
+                    Adyacencia1[i][j] = (int) (Math.random() * 2);
                 }
                 //Un 0 en la matriz significa que no están relacionados y un número entre 1 si existe una arista de i a j
-                if (Adyacencia[i][j] == 1) {
-                    Adyacencia[i][j] = (int) (Math.random() * 5) + 1;
+                if (Adyacencia1[i][j] == 1) {
+                    Adyacencia1[i][j] = (int) (Math.random() * 5) + 1;
                 }
                 j++;
             }
             j = 0;
             i++;
         }
-        return Adyacencia;
+        return Adyacencia1;
     }
 
     //Verifica que no haya nodos aislados
@@ -500,23 +500,23 @@ public class Grafo {
                         aux = aux.linkIncidentes;
                     }
                 }
-                if (infecta == true) {
+                if ((aux != null) && (infecta == true)) {
                     if (MePuedenInfectar == null) {
                         MePuedenInfectar = aux;
-                        aux.linkMePuedenInfectar = null;
+
                     } else {
                         aux2 = MePuedenInfectar;
                         while (aux2.linkMePuedenInfectar != null) {
                             aux2 = aux2.linkMePuedenInfectar;
                         }
                         aux2.linkMePuedenInfectar = aux;
-                        aux.linkMePuedenInfectar = null;
                     }
+
+                    aux.linkMePuedenInfectar = null;
                 }
             }
-                q = q.linkIncidentes;            
+            q = q.linkIncidentes;
         }
-        
-        
+
     }
 }
