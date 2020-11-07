@@ -101,21 +101,23 @@ public class Grafo {
 
     //Crea una lista donde cada nodo tendrá las características de los nodos del grafo
     public void GrafoComoLista(Graphics g, int Matriz[][]) {
-        int i = 0;
+        int i = 0, eso = 0;
         ListaNodos p;
         int infectado;
         miListaNodos = null;
 
         while (i < cantidadNodos) {
             ListaNodos q;
-            if (modoGrafo == 0 || modoGrafo == 1) {
+            if ((modoGrafo == 0) || (modoGrafo == 1)) {
                 Persona tempp = new Persona(0, modoGrafo);
                 Nodo tempn = new Nodo(i + 1, tempp);
                 q = new ListaNodos(tempn);
 
                 //q.mascarilla = mascarilla;
             } else {
-                Persona tempp = new Persona(0, (int) (Math.random() * 2));
+                eso = (int) (Math.random() * 2);
+                System.out.println("soy eso "+ eso);
+                Persona tempp = new Persona(0, eso);
                 Nodo tempn = new Nodo(i + 1, tempp);
                 q = new ListaNodos(tempn);
                 //q.mascarilla = (int) (Math.random() * 2);
@@ -218,8 +220,7 @@ public class Grafo {
                         System.out.println("Entré al else");
                         if ((p != null) && (p.linkIncidentes != null)) {
                             aux1 = p.linkIncidentes;
-                            while (aux1.linkIncidentes != null) {
-                                System.out.println("Me quedo por estúpido");
+                            while (aux1.linkIncidentes != null) {                              
                                 aux1 = aux1.linkIncidentes;
                             }
                             aux1.linkIncidentes = q;
@@ -299,7 +300,7 @@ public class Grafo {
         }
     }
 
-    ////Calcula mediente la probabilidad definida previamiente si el posible infectado es infectado o no
+    ////Calcula mediante la probabilidad definida previamiente si el posible infectado es infectado o no
     public void CalculaProbabilidades(Graphics g, ListaNodos p, ListaNodos aux, int Matriz[][]) {
         System.out.println(aux.minodo.id);
         if ((p.minodo.miPersona.mascarilla == 0) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
