@@ -744,6 +744,12 @@ public class JCS extends javax.swing.JFrame {
         grafo.Iteracion(g, grafo.Adyacencia);
         nodosDibujados p = Graficar.misNodosDibujados;
         while (p != null) {
+            if(Graficar.PersonaEnferma(p.numero)){
+                System.out.println("Infectado "+p.numero+" si");
+            }else{
+                 System.out.println("Infectado "+p.numero+" no");
+            }
+            
             if (Graficar.PersonaEnferma(p.numero)) {
                 g.setColor(Color.white);
                 g.drawOval((int) p.x - Graficar.Radio / 2, (int) p.y - Graficar.Radio / 2, Graficar.Radio, Graficar.Radio);
