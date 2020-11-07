@@ -568,7 +568,7 @@ public class Grafo {
                 System.out.print(vertexIndex + " \t\t ");
                 System.out.print(distances[vertexIndex] + "\t\t");
 
-                if(distances[vertexIndex]<menor){
+                if((distances[vertexIndex]<menor)&& !(Graficar.PersonaEnferma(vertexIndex+1))){
                     System.out.println("entre");
                     menor = distances[vertexIndex]; 
                     proxNodo=vertexIndex+1;
