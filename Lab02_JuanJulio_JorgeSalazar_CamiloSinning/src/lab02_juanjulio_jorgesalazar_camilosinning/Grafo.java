@@ -120,6 +120,7 @@ public class Grafo {
                 q = new ListaNodos(tempn);
                 //q.mascarilla = (int) (Math.random() * 2);
             }
+            modoGrafo = 1;
             q.linkIncidentes = null;
             //1 significa que la persona está contagiada
             //0 significa que la persona no está contagiada
@@ -173,11 +174,13 @@ public class Grafo {
     public void ActualizaInfectados(Graphics g, int infectado, int Matriz[][]) {
         ListaNodos p;
 
+        System.out.println("entro afuera");
         p = miListaNodos;
         while ((p != null) && (p.minodo.id != infectado)) {
             p = p.link;
         }
-        if (p != null) {
+        if ((p != null) && (p.minodo.id == infectado)) {
+            System.out.println("entro");
             p.minodo.miPersona.enfermo = 1;
         }
         if (sw == true) {
@@ -254,9 +257,10 @@ public class Grafo {
 
     //Se encarga de generar las iteraciones en simulador y actualizar 
     public void Iteracion(Graphics g, int Matriz[][]) {
+        System.out.println("hola");
         ListaNodos p, q, t;
         p = miListaNodos;
-
+        System.out.println("p: "+p.minodo.id);
         while (p != null) {
             while ((p != null) && (p.minodo.miPersona.enfermo == 0)) {
                 p = p.link;
@@ -273,7 +277,7 @@ public class Grafo {
         System.out.println("Llego al final");
         q = Infectados;
         while (q != null) {
-            System.out.println("entro");
+            System.out.println("entro aja");
             ActualizaInfectados(g, q.minodo.id, Matriz);
             q = q.link;
 
@@ -301,7 +305,7 @@ public class Grafo {
 
     ////Calcula mediente la probabilidad definida previamiente si el posible infectado es infectado o no
     public void CalculaProbabilidades(Graphics g, ListaNodos p, ListaNodos aux, int Matriz[][]) {
-        System.out.println(aux.minodo.id);
+        System.out.println("entro probabilidades"+aux.minodo.id);
         if ((p.minodo.miPersona.mascarilla == 0) && (aux.minodo.miPersona.mascarilla == 0) && (Matriz[p.minodo.id - 1][aux.minodo.id - 1] > 2)) {
             ListaNodos q, t;
             int prob;
@@ -549,7 +553,7 @@ public class Grafo {
         }
         if (sw1) {
             print(vi, distanciasCortas, parents);
-        }else{
+        } else {
             print2(vi, distanciasCortas, parents);
         }
 
@@ -557,6 +561,7 @@ public class Grafo {
 
     static boolean sw1 = true;
     static int proxNodo;
+
     void print2(int startVertex, int[] distances, int[] parents) {
         int nVertices = distances.length;
         System.out.print("Vertex\t Distance\tPath2");
@@ -568,20 +573,18 @@ public class Grafo {
                 System.out.print(vertexIndex + " \t\t ");
                 System.out.print(distances[vertexIndex] + "\t\t");
 
-                if((distances[vertexIndex]<menor)&& !(Graficar.PersonaEnferma(vertexIndex+1))){
+                if ((distances[vertexIndex] < menor) && !(Graficar.PersonaEnferma(vertexIndex + 1))) {
                     System.out.println("entre");
-                    menor = distances[vertexIndex]; 
-                    proxNodo=vertexIndex+1;
-                    System.out.println("aja"+proxNodo);
+                    menor = distances[vertexIndex];
+                    proxNodo = vertexIndex + 1;
+                    System.out.println("aja" + proxNodo);
                 }
-                   
-
 
             }
         }
-       
 
     }
+
     void print(int startVertex, int[] distances, int[] parents) {
         int nVertices = distances.length;
         System.out.print("Vertex\t Distance\tPath");
@@ -621,7 +624,7 @@ public class Grafo {
         nodom = 0;
         caminomenor = "";
         m = Integer.MAX_VALUE;
-        dijkstra(Adyacencia,n-1);
+        dijkstra(Adyacencia, n - 1);
 
     }
 
