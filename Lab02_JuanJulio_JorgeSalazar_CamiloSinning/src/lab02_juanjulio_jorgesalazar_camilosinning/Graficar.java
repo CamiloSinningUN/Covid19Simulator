@@ -286,7 +286,7 @@ public class Graficar {
         return sw;
     }
 
-    //Dibuja las el resto de nodos y sus conecciones
+    //Dibuja las el resto de nodos y sus conexiones
     public static void ConexionesDibujados(Graphics g) {
 //        System.out.println("ConexionesDibujados");
         double GradoActual;

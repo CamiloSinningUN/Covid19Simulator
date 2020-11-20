@@ -563,6 +563,7 @@ public class Grafo {
     static boolean sw1 = true;
     static int proxNodo;
 
+    //Próximo a infectar del grafo
     void print2(int startVertex, int[] distances, int[] parents) {
         int nVertices = distances.length;
         System.out.print("Vertex\t Distance\tPath2");
@@ -586,6 +587,7 @@ public class Grafo {
 
     }
 
+    //Camino de mayor probabilidad de infección
     void print(int startVertex, int[] distances, int[] parents) {
         int nVertices = distances.length;
         System.out.print("Vertex\t Distance\tPath");
