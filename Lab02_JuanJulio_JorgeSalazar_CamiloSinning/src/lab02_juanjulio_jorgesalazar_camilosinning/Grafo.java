@@ -122,7 +122,7 @@ public class Grafo {
                 q = new ListaNodos(tempn);
                 //q.mascarilla = (int) (Math.random() * 2);
             }
-            modoGrafo = 1;
+            
             q.linkIncidentes = null;
             //1 significa que la persona está contagiada
             //0 significa que la persona no está contagiada
@@ -145,10 +145,12 @@ public class Grafo {
             System.out.println(aux.minodo.id);
             aux = aux.link;
         }
-        System.out.println("Listo el grafo como lista");
+        System.out.println("Listo el grafo como lista");     
+        modoGrafo = 1;        
         ListaDeAdyacencia(Matriz);
-        infectado = PrimerInfectado(Matriz);
+        infectado = PrimerInfectado(Matriz);       
         ActualizaInfectados(g, infectado, Matriz);
+        
     }
 
     //Función que da al azar el primer infectado
